@@ -1,0 +1,215 @@
+# PRODUCT REQUIREMENT DOCUMENT (PRD)
+
+## Sistem Informasi Bimbingan Belajar Privat Berbasis Web
+
+### (Studi Kasus: LBB Number One Kediri)
+
+---
+
+## 1. Latar Belakang
+
+Sistem ini dibuat untuk membantu pengelolaan kegiatan bimbingan belajar privat secara terintegrasi. Saat ini proses administrasi seperti pengelolaan tutor, siswa, jadwal, dan pembayaran masih dilakukan secara manual sehingga kurang efisien dan rentan kesalahan.
+
+Dengan adanya sistem berbasis web, diharapkan seluruh proses dapat dilakukan secara terpusat, real-time, dan lebih akurat.
+
+---
+
+## 2. Tujuan Sistem
+
+* Mempermudah pengelolaan data tutor, siswa, dan paket les
+* Mengelola jadwal pembelajaran secara terstruktur
+* Mempermudah proses pembayaran dan pelaporan
+* Menyediakan monitoring kehadiran tutor dan siswa
+* Memberikan akses informasi kepada tutor dan siswa secara real-time
+
+---
+
+## 3. Aktor Sistem
+
+Sistem memiliki 3 aktor utama:
+
+1. Admin
+2. Tutor
+3. Siswa
+
+---
+
+## 4. Kebutuhan Fungsional
+
+### 4.1 Admin
+
+Admin memiliki hak akses penuh dalam sistem, meliputi:
+
+* Login ke sistem
+* Mengelola data tutor (CRUD)
+* Mengelola data siswa (CRUD)
+* Mengelola paket les (CRUD)
+* Mengelola mata pelajaran (CRUD)
+* Mengatur jadwal tutor
+* Mengelola data pembayaran
+* Melihat dan mencetak laporan pembayaran
+* Monitoring kehadiran tutor
+* Melihat rekap pertemuan tutor
+
+---
+
+### 4.2 Tutor
+
+Tutor memiliki akses untuk kegiatan mengajar, meliputi:
+
+* Login ke sistem
+* Melihat jadwal mengajar
+* Mencatat kehadiran dan hasil pertemuan
+* Melihat riwayat mengajar
+* Menerima notifikasi jadwal
+* Mengelola / memperbarui profil
+
+---
+
+### 4.3 Siswa
+
+Siswa memiliki akses untuk mengikuti kegiatan les, meliputi:
+
+* Login ke sistem
+* Memilih paket les
+* Memilih mata pelajaran
+* Melihat jadwal les
+* Menerima notifikasi jadwal
+* Melakukan konfirmasi kehadiran
+* Melihat riwayat les
+* Melihat status pembayaran
+
+---
+
+## 5. Daftar Fitur Sistem
+
+### 5.1 Autentikasi
+
+* Login dan logout untuk semua pengguna
+* Sistem membedakan hak akses berdasarkan role (admin, tutor, siswa)
+
+---
+
+### 5.2 Manajemen Data (Admin)
+
+* Kelola Data Tutor
+* Kelola Data Siswa
+* Kelola Paket Les
+* Kelola Mata Pelajaran
+
+---
+
+### 5.3 Manajemen Jadwal
+
+* Admin membuat dan mengatur jadwal tutor
+* Tutor dan siswa dapat melihat jadwal masing-masing
+
+---
+
+### 5.4 Manajemen Pembayaran
+
+* Admin mencatat pembayaran
+* Sistem menyimpan status pembayaran (pending, lunas, gagal)
+* Siswa dapat melihat status pembayaran
+
+---
+
+### 5.5 Absensi dan Pertemuan
+
+* Tutor mencatat kehadiran dan hasil pertemuan
+* Siswa melakukan konfirmasi kehadiran
+* Admin dapat memonitor kehadiran
+
+---
+
+### 5.6 Laporan
+
+* Laporan pembayaran (filter tanggal & status)
+* Rekap kehadiran tutor
+* Data dapat dicetak
+
+---
+
+### 5.7 Notifikasi
+
+* Sistem mengirim notifikasi jadwal ke tutor dan siswa
+
+---
+
+## 6. Alur Proses Utama
+
+### 6.1 Login
+
+Pengguna memasukkan username dan password → sistem memverifikasi → masuk ke dashboard sesuai role.
+
+---
+
+### 6.2 Pemesanan Paket
+
+Siswa memilih paket → sistem menyimpan data → status pembayaran dibuat "pending".
+
+---
+
+### 6.3 Pembayaran
+
+Admin mengelola pembayaran → jika sudah dibayar maka status diubah menjadi "lunas".
+
+---
+
+### 6.4 Penjadwalan
+
+Admin membuat jadwal → tutor & siswa dapat melihat jadwal masing-masing.
+
+---
+
+### 6.5 Absensi
+
+Tutor mencatat pertemuan → siswa konfirmasi kehadiran → data tersimpan.
+
+---
+
+### 6.6 Laporan
+
+Admin melihat laporan → dapat difilter → dapat dicetak.
+
+---
+
+## 7. Kebutuhan Non-Fungsional
+
+* Sistem berbasis web (Laravel)
+* Responsif (desktop & mobile)
+* Keamanan autentikasi pengguna
+* Akses berbasis role
+* Data tersimpan di database MySQL
+
+---
+
+## 8. Struktur Status Penting
+
+### Status Pembayaran:
+
+* pending → menunggu pembayaran
+* lunas → pembayaran berhasil
+* gagal → pembayaran ditolak
+
+### Status Kehadiran:
+
+* hadir
+* tidak hadir
+
+---
+
+## 9. Target Pengembangan
+
+Sistem ditargetkan:
+
+* Mudah digunakan
+* Stabil
+* Siap dikembangkan ke payment gateway (Midtrans, dll)
+* Siap digunakan untuk operasional LBB
+
+---
+
+## 10. Penutup
+
+Dengan adanya sistem ini, diharapkan pengelolaan bimbingan belajar privat menjadi lebih efisien, terstruktur, dan transparan bagi admin, tutor, maupun siswa.

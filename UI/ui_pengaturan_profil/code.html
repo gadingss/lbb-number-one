@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+
+<html class="light" lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary": "#ffffff",
+                    "surface-container-low": "#eff4ff",
+                    "surface-tint": "#0053db",
+                    "on-error": "#ffffff",
+                    "on-tertiary": "#ffffff",
+                    "primary-fixed-dim": "#b4c5ff",
+                    "primary-container": "#2563eb",
+                    "on-secondary-container": "#394c84",
+                    "background": "#f8f9ff",
+                    "on-secondary-fixed": "#00174b",
+                    "on-secondary": "#ffffff",
+                    "surface-container-highest": "#d5e3fc",
+                    "outline": "#737686",
+                    "tertiary-container": "#bc4800",
+                    "primary": "#004ac6",
+                    "on-surface": "#0d1c2e",
+                    "secondary-container": "#acbfff",
+                    "surface": "#f8f9ff",
+                    "secondary-fixed-dim": "#b4c5ff",
+                    "surface-bright": "#f8f9ff",
+                    "surface-container-high": "#dce9ff",
+                    "inverse-surface": "#233144",
+                    "on-primary-fixed": "#00174b",
+                    "on-background": "#0d1c2e",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-dim": "#ccdbf3",
+                    "on-error-container": "#93000a",
+                    "tertiary": "#943700",
+                    "tertiary-fixed-dim": "#ffb596",
+                    "surface-variant": "#d5e3fc",
+                    "on-tertiary-container": "#ffede6",
+                    "on-primary-fixed-variant": "#003ea8",
+                    "secondary": "#495c95",
+                    "surface-container": "#e6eeff",
+                    "primary-fixed": "#dbe1ff",
+                    "error-container": "#ffdad6",
+                    "inverse-primary": "#b4c5ff",
+                    "inverse-on-surface": "#eaf1ff",
+                    "outline-variant": "#c3c6d7",
+                    "error": "#ba1a1a",
+                    "on-primary-container": "#eeefff",
+                    "on-surface-variant": "#434655",
+                    "secondary-fixed": "#dbe1ff",
+                    "on-tertiary-fixed-variant": "#7d2d00",
+                    "on-tertiary-fixed": "#360f00",
+                    "on-secondary-fixed-variant": "#31447b",
+                    "tertiary-fixed": "#ffdbcd"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Manrope"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(24px);
+        }
+        .cta-gradient {
+            background: linear-gradient(135deg, #004ac6 0%, #2563eb 100%);
+        }
+        /* Remove focus outline for clean UI */
+        *:focus { outline: none; }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body antialiased">
+<!-- SideNavBar Integration -->
+<aside class="h-screen w-64 fixed left-0 top-0 bg-slate-100 dark:bg-slate-900 flex flex-col p-4 space-y-2 z-40">
+<div class="mb-8 px-4 flex items-center space-x-3">
+<div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center text-white">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">school</span>
+</div>
+<div>
+<h1 class="font-headline font-extrabold text-blue-900 dark:text-blue-100 leading-tight">LBB Number One</h1>
+<p class="text-[10px] uppercase tracking-widest text-slate-500 font-bold">Academic Atelier</p>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800/50 hover:translate-x-1 transition-all duration-200 rounded-lg group" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="dashboard">dashboard</span>
+<span class="font-['Inter'] text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800/50 hover:translate-x-1 transition-all duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="group">group</span>
+<span class="font-['Inter'] text-sm font-medium">Siswa</span>
+</a>
+<a class="flex items-center px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800/50 hover:translate-x-1 transition-all duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="school">school</span>
+<span class="font-['Inter'] text-sm font-medium">Pengajar</span>
+</a>
+<a class="flex items-center px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800/50 hover:translate-x-1 transition-all duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="calendar_month">calendar_month</span>
+<span class="font-['Inter'] text-sm font-medium">Jadwal</span>
+</a>
+<a class="flex items-center px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800/50 hover:translate-x-1 transition-all duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="payments">payments</span>
+<span class="font-['Inter'] text-sm font-medium">Keuangan</span>
+</a>
+<a class="flex items-center px-4 py-3 bg-white dark:bg-slate-800 text-blue-700 dark:text-blue-300 rounded-lg shadow-sm font-semibold active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="settings" style="font-variation-settings: 'FILL' 1;">settings</span>
+<span class="font-['Inter'] text-sm font-medium">Pengaturan</span>
+</a>
+</nav>
+<div class="mt-auto p-4 bg-surface-container-low rounded-xl">
+<div class="flex items-center space-x-3">
+<img alt="Admin Avatar" class="w-10 h-10 rounded-full object-cover" data-alt="Close-up professional portrait of a male administrator in a light blue shirt, bright office environment with soft focus" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCACs7-1lhTzmFkNubKXxbOkUrvxG18oRcmUHF1g_VL0yRBLHab9_GJzuUnHPBP_42NyfDZQCEj7B-vDwlppNmGz_MTd6EMiox4gejAKpkLIR7cK1KrMwWaD-j2RHzpP6YM5IST1f0BosSl5uJOSlLuj-adIWkbz9CgXDT5jh8vlqZ3WCHZ60qnClz9VFh3dN5oUdO-TR9UcwqvkfOhtMCqizM5PsnHY2en_ULRcPxwGSkmz3dykIGiIzbyNNQYB0ku_A8yVczTK5ap"/>
+<div class="overflow-hidden">
+<p class="text-sm font-bold truncate">Budi Santoso</p>
+<p class="text-xs text-slate-500">Super Admin</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-64 min-h-screen">
+<!-- TopNavBar Integration -->
+<header class="w-full sticky top-0 z-30 flex justify-between items-center px-8 py-4 bg-slate-50/80 dark:bg-slate-950/80 backdrop-blur-xl">
+<div>
+<h2 class="font-headline font-bold text-xl tracking-tight text-blue-800 dark:text-blue-300">Pengaturan Profil</h2>
+<p class="text-sm text-on-surface-variant">Kelola identitas dan preferensi sistem Anda</p>
+</div>
+<div class="flex items-center space-x-4">
+<button class="p-2 rounded-full hover:bg-slate-200/50 transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined text-slate-500" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 rounded-full hover:bg-slate-200/50 transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined text-slate-500" data-icon="settings">settings</span>
+</button>
+<div class="h-8 w-[1px] bg-outline-variant/30"></div>
+<button class="cta-gradient text-white px-6 py-2.5 rounded-xl font-headline font-bold text-sm shadow-lg shadow-primary/20 hover:opacity-90 active:scale-95 transition-all">
+                    Simpan Perubahan
+                </button>
+</div>
+</header>
+<div class="p-8 max-w-6xl mx-auto">
+<div class="grid grid-cols-12 gap-8">
+<!-- Section 1: Profil Pribadi (Bento Card Large) -->
+<section class="col-span-12 lg:col-span-8 bg-surface-container-lowest rounded-3xl p-8 shadow-sm">
+<div class="flex items-center justify-between mb-8">
+<h3 class="font-headline text-2xl font-bold text-on-surface flex items-center">
+<span class="material-symbols-outlined mr-3 text-primary">person</span>
+                            Profil Pribadi
+                        </h3>
+</div>
+<div class="flex flex-col md:flex-row gap-10">
+<div class="flex-shrink-0 group relative">
+<div class="w-32 h-32 rounded-3xl overflow-hidden ring-4 ring-surface-container-low transition-all">
+<img alt="Profile Large" class="w-full h-full object-cover" data-alt="Professional headshot of a smiling middle-aged Indonesian man in business casual attire with soft studio lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC_IZetPx09OgfOKDQTsDalEv0jIHVmWoYGX9erLF0S0KZS3Hg9PwBDVOdkap87tM0iUoMwbxtJh-mtRe8YVr6Ia6vkynnzJpHnnn9O-_hcHdp2n_M2yOAsMgJEg_9jBlNKxl-izHRYXal-64QOFTF3i5SG5er-PBtyu9REw1uqWBmk7r0LcdkcbndrzcY3qgRm5SCUZ0IXZn5gy8ct8nLYWid2Ym_rQujHC3isur8mTUyyMuH1cYSIxjxCLYu-5scisaQudXz82x4h"/>
+</div>
+<button class="absolute -bottom-2 -right-2 bg-primary text-white p-2 rounded-xl shadow-lg hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-sm">photo_camera</span>
+</button>
+</div>
+<div class="flex-1 grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="space-y-2">
+<label class="text-xs font-bold text-slate-500 uppercase tracking-wider ml-1">Nama Lengkap</label>
+<input class="w-full bg-surface-container-highest border-none rounded-xl px-4 py-3 focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary/20 transition-all font-medium" type="text" value="Budi Santoso, M.Pd."/>
+</div>
+<div class="space-y-2">
+<label class="text-xs font-bold text-slate-500 uppercase tracking-wider ml-1">Email Institusi</label>
+<input class="w-full bg-surface-container-highest border-none rounded-xl px-4 py-3 focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary/20 transition-all font-medium" type="email" value="budi.santoso@lbbnumberone.com"/>
+</div>
+<div class="space-y-2">
+<label class="text-xs font-bold text-slate-500 uppercase tracking-wider ml-1">Nomor Telepon</label>
+<input class="w-full bg-surface-container-highest border-none rounded-xl px-4 py-3 focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary/20 transition-all font-medium" type="text" value="+62 812-3456-7890"/>
+</div>
+<div class="space-y-2">
+<label class="text-xs font-bold text-slate-500 uppercase tracking-wider ml-1">Jabatan</label>
+<input class="w-full bg-surface-container-high/50 border-none rounded-xl px-4 py-3 text-slate-500 cursor-not-allowed font-medium" readonly="" type="text" value="Kepala Operasional"/>
+</div>
+<div class="md:col-span-2 space-y-2">
+<label class="text-xs font-bold text-slate-500 uppercase tracking-wider ml-1">Bio Singkat</label>
+<textarea class="w-full bg-surface-container-highest border-none rounded-xl px-4 py-3 focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary/20 transition-all font-medium resize-none" rows="3">Berpengalaman lebih dari 10 tahun dalam manajemen pendidikan dan pengembangan kurikulum bimbel.</textarea>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 2: Keamanan (Side Card) -->
+<section class="col-span-12 lg:col-span-4 bg-surface-container-low rounded-3xl p-8 flex flex-col">
+<h3 class="font-headline text-xl font-bold text-on-surface mb-6 flex items-center">
+<span class="material-symbols-outlined mr-3 text-primary">security</span>
+                        Keamanan
+                    </h3>
+<div class="space-y-4 flex-1">
+<div class="bg-surface-container-lowest p-4 rounded-2xl flex items-center justify-between group cursor-pointer hover:bg-primary transition-colors duration-300">
+<div class="flex items-center">
+<div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center mr-4 group-hover:bg-white/20">
+<span class="material-symbols-outlined text-primary group-hover:text-white">lock_reset</span>
+</div>
+<div>
+<p class="text-sm font-bold group-hover:text-white">Kata Sandi</p>
+<p class="text-xs text-slate-500 group-hover:text-white/70">Terakhir diubah 3 bulan lalu</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-slate-400 group-hover:text-white">chevron_right</span>
+</div>
+<div class="bg-surface-container-lowest p-4 rounded-2xl border-2 border-transparent">
+<div class="flex items-center justify-between mb-2">
+<div class="flex items-center">
+<div class="w-10 h-10 rounded-xl bg-tertiary/10 flex items-center justify-center mr-4">
+<span class="material-symbols-outlined text-tertiary">verified_user</span>
+</div>
+<p class="text-sm font-bold">Autentikasi 2FA</p>
+</div>
+<div class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</div>
+</div>
+<p class="text-xs text-slate-500 leading-relaxed">Tambahkan lapisan keamanan ekstra dengan kode verifikasi dari perangkat seluler Anda.</p>
+</div>
+</div>
+<div class="mt-8 pt-6 border-t border-outline-variant/30">
+<p class="text-xs text-slate-400 text-center">Sesi aktif saat ini: <strong>Jakarta, Indonesia</strong></p>
+</div>
+</section>
+<!-- Section 3: Notifikasi (Asymmetric Layout) -->
+<section class="col-span-12 lg:col-span-6 bg-surface-container-lowest rounded-3xl p-8 shadow-sm">
+<h3 class="font-headline text-xl font-bold text-on-surface mb-8 flex items-center">
+<span class="material-symbols-outlined mr-3 text-primary">notifications_active</span>
+                        Notifikasi
+                    </h3>
+<div class="space-y-6">
+<div class="flex items-center justify-between pb-4 border-b border-outline-variant/10">
+<div>
+<p class="font-bold text-sm">Laporan Harian Email</p>
+<p class="text-xs text-slate-500">Terima ringkasan aktivitas siswa setiap pagi</p>
+</div>
+<div class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</div>
+</div>
+<div class="flex items-center justify-between pb-4 border-b border-outline-variant/10">
+<div>
+<p class="font-bold text-sm">Push Notifications Browser</p>
+<p class="text-xs text-slate-500">Peringatan real-time untuk pesan baru pengajar</p>
+</div>
+<div class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</div>
+</div>
+<div class="flex items-center justify-between">
+<div>
+<p class="font-bold text-sm">Pengingat Pembayaran</p>
+<p class="text-xs text-slate-500">Notifikasi saat jatuh tempo administrasi siswa</p>
+</div>
+<div class="relative inline-flex items-center cursor-pointer">
+<input class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 4: Preferensi Sistem (Asymmetric Layout) -->
+<section class="col-span-12 lg:col-span-6 bg-surface-container-lowest rounded-3xl p-8 shadow-sm">
+<h3 class="font-headline text-xl font-bold text-on-surface mb-8 flex items-center">
+<span class="material-symbols-outlined mr-3 text-primary">display_settings</span>
+                        Preferensi Sistem
+                    </h3>
+<div class="grid grid-cols-2 gap-4">
+<div class="space-y-3">
+<label class="text-xs font-bold text-slate-500 uppercase tracking-wider">Bahasa</label>
+<div class="relative">
+<select class="w-full appearance-none bg-surface-container-highest border-none rounded-xl px-4 py-3 font-medium pr-10 focus:ring-2 focus:ring-primary/20">
+<option selected="">Bahasa Indonesia</option>
+<option>English (US)</option>
+<option>English (UK)</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">expand_more</span>
+</div>
+</div>
+<div class="space-y-3">
+<label class="text-xs font-bold text-slate-500 uppercase tracking-wider">Zona Waktu</label>
+<div class="relative">
+<select class="w-full appearance-none bg-surface-container-highest border-none rounded-xl px-4 py-3 font-medium pr-10 focus:ring-2 focus:ring-primary/20">
+<option selected="">WIB (GMT+7)</option>
+<option>WITA (GMT+8)</option>
+<option>WIT (GMT+9)</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">schedule</span>
+</div>
+</div>
+<div class="col-span-2 space-y-3 mt-4">
+<label class="text-xs font-bold text-slate-500 uppercase tracking-wider">Tampilan Tema</label>
+<div class="grid grid-cols-3 gap-3">
+<button class="flex flex-col items-center justify-center p-4 rounded-2xl bg-white ring-2 ring-primary transition-all group">
+<span class="material-symbols-outlined text-primary mb-2" style="font-variation-settings: 'FILL' 1;">light_mode</span>
+<span class="text-xs font-bold text-primary">Terang</span>
+</button>
+<button class="flex flex-col items-center justify-center p-4 rounded-2xl bg-slate-900 border border-transparent hover:border-slate-700 transition-all group">
+<span class="material-symbols-outlined text-slate-400 mb-2 group-hover:text-white transition-colors">dark_mode</span>
+<span class="text-xs font-bold text-slate-400 group-hover:text-white transition-colors">Gelap</span>
+</button>
+<button class="flex flex-col items-center justify-center p-4 rounded-2xl bg-slate-100 border border-transparent hover:border-slate-300 transition-all group">
+<span class="material-symbols-outlined text-slate-400 mb-2 group-hover:text-slate-600 transition-colors">contrast</span>
+<span class="text-xs font-bold text-slate-400 group-hover:text-slate-600 transition-colors">Otomatis</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Bottom Action Banner -->
+<div class="col-span-12 bg-primary/5 rounded-3xl p-6 flex flex-col md:flex-row items-center justify-between gap-4">
+<div class="flex items-center text-primary-fixed-dim">
+<span class="material-symbols-outlined mr-3">info</span>
+<p class="text-sm font-medium text-blue-900">Pastikan semua informasi sudah benar sebelum menekan tombol simpan.</p>
+</div>
+<div class="flex gap-3">
+<button class="px-6 py-2.5 rounded-xl font-headline font-bold text-sm text-slate-500 hover:bg-slate-200 transition-colors">
+                            Batalkan
+                        </button>
+<button class="cta-gradient text-white px-8 py-2.5 rounded-xl font-headline font-bold text-sm shadow-lg shadow-primary/30 hover:shadow-xl hover:-translate-y-0.5 transition-all active:scale-95">
+                            Simpan Semua Perubahan
+                        </button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Support Floating Contact (Minimalist) -->
+<div class="fixed bottom-8 right-8 z-50">
+<button class="w-14 h-14 rounded-full bg-white shadow-2xl flex items-center justify-center text-primary hover:scale-110 transition-transform active:scale-95 group">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">support_agent</span>
+<span class="absolute right-full mr-4 bg-on-surface text-white px-3 py-1.5 rounded-lg text-xs font-bold opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">Bantuan Teknis</span>
+</button>
+</div>
+</body></html>

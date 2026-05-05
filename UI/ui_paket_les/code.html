@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+
+<html class="light" lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>LBB Number One - Manajemen Paket Les</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-low": "#eff4ff",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "background": "#f8f9ff",
+                        "outline-variant": "#c3c6d7",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-primary": "#b4c5ff",
+                        "surface": "#f8f9ff",
+                        "inverse-on-surface": "#eaf1ff",
+                        "on-surface": "#0d1c2e",
+                        "on-background": "#0d1c2e",
+                        "inverse-surface": "#233144",
+                        "on-primary": "#ffffff",
+                        "surface-variant": "#d5e3fc",
+                        "error": "#ba1a1a",
+                        "secondary-fixed": "#dbe1ff",
+                        "on-error-container": "#93000a",
+                        "secondary": "#495c95",
+                        "tertiary-fixed": "#ffdbcd",
+                        "secondary-container": "#acbfff",
+                        "on-surface-variant": "#434655",
+                        "surface-container-highest": "#d5e3fc",
+                        "surface-dim": "#ccdbf3",
+                        "secondary-fixed-dim": "#b4c5ff",
+                        "tertiary-fixed-dim": "#ffb596",
+                        "surface-tint": "#0053db",
+                        "on-secondary-container": "#394c84",
+                        "outline": "#737686",
+                        "on-secondary-fixed-variant": "#31447b",
+                        "on-primary-fixed": "#00174b",
+                        "on-secondary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "primary-container": "#2563eb",
+                        "surface-bright": "#f8f9ff",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "on-secondary-fixed": "#00174b",
+                        "on-tertiary-fixed": "#360f00",
+                        "on-primary-container": "#eeefff",
+                        "on-error": "#ffffff",
+                        "primary": "#004ac6",
+                        "tertiary": "#943700",
+                        "surface-container": "#e6eeff",
+                        "on-tertiary-fixed-variant": "#7d2d00",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-high": "#dce9ff",
+                        "on-tertiary-container": "#ffede6",
+                        "primary-fixed": "#dbe1ff",
+                        "tertiary-container": "#bc4800"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, .headline { font-family: 'Manrope', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface flex min-h-screen">
+<!-- SideNavBar Shell -->
+<aside class="h-screen fixed left-0 top-0 w-64 z-40 bg-slate-50 dark:bg-slate-900 flex flex-col h-full py-6 border-none">
+<div class="px-8 mb-10">
+<h1 class="text-blue-800 dark:text-blue-300 font-extrabold text-lg tracking-tighter uppercase">LBB Number One</h1>
+<p class="text-slate-400 text-[10px] font-bold tracking-widest uppercase">Academic Atelier</p>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center text-slate-500 dark:text-slate-400 px-8 py-3 hover:bg-blue-100/50 dark:hover:bg-slate-700 transition-all" href="#">
+<span class="material-symbols-outlined mr-4" data-icon="dashboard">dashboard</span>
+<span class="font-['Manrope'] font-semibold tracking-tight text-sm">Dashboard</span>
+</a>
+<a class="flex items-center text-slate-500 dark:text-slate-400 px-8 py-3 hover:bg-blue-100/50 dark:hover:bg-slate-700 transition-all" href="#">
+<span class="material-symbols-outlined mr-4" data-icon="school">school</span>
+<span class="font-['Manrope'] font-semibold tracking-tight text-sm">Siswa</span>
+</a>
+<a class="flex items-center text-slate-500 dark:text-slate-400 px-8 py-3 hover:bg-blue-100/50 dark:hover:bg-slate-700 transition-all" href="#">
+<span class="material-symbols-outlined mr-4" data-icon="assignment_ind">assignment_ind</span>
+<span class="font-['Manrope'] font-semibold tracking-tight text-sm">Pengajar</span>
+</a>
+<a class="flex items-center text-slate-500 dark:text-slate-400 px-8 py-3 hover:bg-blue-100/50 dark:hover:bg-slate-700 transition-all" href="#">
+<span class="material-symbols-outlined mr-4" data-icon="calendar_month">calendar_month</span>
+<span class="font-['Manrope'] font-semibold tracking-tight text-sm">Jadwal</span>
+</a>
+<a class="flex items-center bg-white dark:bg-slate-800 text-blue-700 dark:text-blue-300 font-bold rounded-l-full shadow-sm ml-4 pl-4 py-3 scale-98 duration-200" href="#">
+<span class="material-symbols-outlined mr-4" data-icon="inventory_2" style="font-variation-settings: 'FILL' 1;">inventory_2</span>
+<span class="font-['Manrope'] font-semibold tracking-tight text-sm">Paket Les</span>
+</a>
+<a class="flex items-center text-slate-500 dark:text-slate-400 px-8 py-3 hover:bg-blue-100/50 dark:hover:bg-slate-700 transition-all" href="#">
+<span class="material-symbols-outlined mr-4" data-icon="payments">payments</span>
+<span class="font-['Manrope'] font-semibold tracking-tight text-sm">Keuangan</span>
+</a>
+<a class="flex items-center text-slate-500 dark:text-slate-400 px-8 py-3 hover:bg-blue-100/50 dark:hover:bg-slate-700 transition-all" href="#">
+<span class="material-symbols-outlined mr-4" data-icon="settings">settings</span>
+<span class="font-['Manrope'] font-semibold tracking-tight text-sm">Pengaturan</span>
+</a>
+</nav>
+<div class="px-8 pt-6 border-t border-slate-200/50 mt-auto flex items-center gap-3">
+<img class="w-10 h-10 rounded-full bg-blue-100" data-alt="close-up portrait of a professional academic administrator in a modern office environment with soft lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDCyuGHQzmpMaa1MB4MkRqBX3Lge_JtH9fBxi_biYMUcyhS3YoKgk8Z3NO2O4-IAuqc9-5F4vShSu51-Qk4Drx-pWd_MYvVS_AVcFsMHXVcYxRWAt7_Pvp1094zljt0pUXG2vicTuwDNQ_dig_WtCJ3oo8RH9CIbUp9oyBVwjRlFvdfIYZwGFrVCJZPMx2xl2INT-CJNT9-aPsRZ2MiVoa4vyQFHoqbtR5ivD_cKt1-lgPqlyVd_qq3jKfi4IJV_5YitsbkT4IoKlCF"/>
+<div>
+<p class="font-headline font-bold text-xs text-on-surface">Admin User</p>
+<p class="text-[10px] text-slate-400">Head of Operations</p>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 ml-64 p-10 pt-24 min-h-screen">
+<!-- TopAppBar -->
+<header class="fixed top-0 right-0 w-[calc(100%-16rem)] z-30 flex justify-between items-center px-10 py-4 backdrop-blur-xl bg-white/80 dark:bg-slate-950/80 transition-all">
+<div class="flex items-center flex-1 max-w-md">
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg" data-icon="search">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-low border-none rounded-full text-sm focus:ring-2 focus:ring-primary/20 placeholder:text-slate-400 transition-all" placeholder="Cari paket atau data..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6 text-slate-400">
+<button class="hover:bg-slate-100/50 dark:hover:bg-slate-800/50 p-2 rounded-full transition-all">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="hover:bg-slate-100/50 dark:hover:bg-slate-800/50 p-2 rounded-full transition-all">
+<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+</button>
+<div class="h-6 w-px bg-slate-200 mx-1"></div>
+<button class="flex items-center gap-2 font-headline font-semibold text-sm text-blue-700">
+<span class="material-symbols-outlined" data-icon="account_circle" style="font-variation-settings: 'FILL' 1;">account_circle</span>
+                    LBB Number One
+                </button>
+</div>
+</header>
+<!-- Page Header -->
+<section class="mb-10 flex justify-between items-end">
+<div>
+<p class="text-primary font-semibold tracking-widest text-[10px] uppercase mb-1">Les Bimbel Private</p>
+<h2 class="text-4xl font-headline font-extrabold text-on-surface tracking-tight">Manajemen Paket Les</h2>
+</div>
+<button class="bg-gradient-to-br from-primary to-primary-container text-white px-6 py-3 rounded-xl font-headline font-bold text-sm flex items-center gap-2 shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-[0.98] transition-all">
+<span class="material-symbols-outlined text-lg" data-icon="add">add</span>
+                Tambah Paket Baru
+            </button>
+</section>
+<!-- Bento Grid Summary -->
+<section class="grid grid-cols-12 gap-6 mb-12">
+<!-- Main Stat Card -->
+<div class="col-span-12 lg:col-span-5 bg-surface-container-lowest p-8 rounded-xl relative overflow-hidden flex flex-col justify-between">
+<div class="absolute -right-10 -top-10 w-40 h-40 bg-primary/5 rounded-full blur-3xl"></div>
+<div class="relative z-10">
+<span class="bg-primary-fixed text-on-primary-fixed text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest">Growth Metric</span>
+<h3 class="text-slate-400 font-medium text-sm mt-4">Total Paket Aktif</h3>
+<p class="text-6xl font-headline font-extrabold text-primary mt-2">24</p>
+</div>
+<div class="mt-8 flex items-center gap-2 text-xs font-semibold text-green-600 bg-green-50 w-fit px-3 py-1 rounded-full">
+<span class="material-symbols-outlined text-sm" data-icon="trending_up">trending_up</span>
+<span>12% Meningkat dari bulan lalu</span>
+</div>
+</div>
+<!-- Asymmetric Grid Column -->
+<div class="col-span-12 lg:col-span-7 grid grid-cols-2 gap-6">
+<div class="bg-surface-container-low p-8 rounded-xl flex flex-col justify-between hover:bg-white transition-colors duration-300">
+<div>
+<span class="material-symbols-outlined text-tertiary-container text-3xl" data-icon="auto_awesome" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<h3 class="text-slate-500 font-medium text-sm mt-4">Paket Paling Populer</h3>
+<p class="text-2xl font-headline font-bold text-on-surface mt-2">Intensif UTBK</p>
+</div>
+<p class="text-xs text-slate-400 mt-4 italic">Dipilih oleh 45% siswa baru</p>
+</div>
+<div class="bg-surface-container-low p-8 rounded-xl flex flex-col justify-between hover:bg-white transition-colors duration-300">
+<div>
+<span class="material-symbols-outlined text-primary text-3xl" data-icon="account_balance_wallet" style="font-variation-settings: 'FILL' 1;">account_balance_wallet</span>
+<h3 class="text-slate-500 font-medium text-sm mt-4">Pendapatan Rata-rata</h3>
+<p class="text-2xl font-headline font-bold text-on-surface mt-2">Rp 1.2M <span class="text-sm font-normal text-slate-400">/paket</span></p>
+</div>
+<div class="mt-4 h-1 w-full bg-slate-200 rounded-full overflow-hidden">
+<div class="h-full bg-primary w-3/4"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- Main Table Section -->
+<section class="bg-surface-container-low p-1 rounded-2xl overflow-hidden shadow-sm">
+<div class="bg-surface-container-lowest rounded-[1.25rem] overflow-hidden">
+<div class="px-8 py-6 flex justify-between items-center bg-white">
+<h3 class="font-headline font-extrabold text-lg tracking-tight">Daftar Paket Les</h3>
+<div class="flex gap-2">
+<button class="text-slate-500 text-xs font-bold border border-slate-200 px-4 py-2 rounded-lg hover:bg-slate-50 transition-all flex items-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="filter_list">filter_list</span>
+                            Filter
+                        </button>
+<button class="text-slate-500 text-xs font-bold border border-slate-200 px-4 py-2 rounded-lg hover:bg-slate-50 transition-all flex items-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="download">download</span>
+                            Export
+                        </button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low/50">
+<th class="px-8 py-4 text-[10px] font-bold text-slate-400 uppercase tracking-widest">No</th>
+<th class="px-4 py-4 text-[10px] font-bold text-slate-400 uppercase tracking-widest">Nama Paket</th>
+<th class="px-4 py-4 text-[10px] font-bold text-slate-400 uppercase tracking-widest">Jenjang</th>
+<th class="px-4 py-4 text-[10px] font-bold text-slate-400 uppercase tracking-widest">Harga</th>
+<th class="px-4 py-4 text-[10px] font-bold text-slate-400 uppercase tracking-widest">Durasi</th>
+<th class="px-4 py-4 text-[10px] font-bold text-slate-400 uppercase tracking-widest">Status</th>
+<th class="px-8 py-4 text-[10px] font-bold text-slate-400 uppercase tracking-widest text-right">Aksi</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-50">
+<!-- Row 1 -->
+<tr class="group hover:bg-surface-container-low transition-colors duration-200">
+<td class="px-8 py-6 text-sm font-medium text-slate-400">01</td>
+<td class="px-4 py-6">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" data-icon="menu_book">menu_book</span>
+</div>
+<div>
+<p class="font-headline font-bold text-on-surface">Paket SD Hemat</p>
+<p class="text-[10px] text-slate-400">Kurikulum Nasional</p>
+</div>
+</div>
+</td>
+<td class="px-4 py-6">
+<span class="bg-secondary-fixed text-on-secondary-fixed text-[10px] font-bold px-3 py-1 rounded-full uppercase">SD</span>
+</td>
+<td class="px-4 py-6">
+<p class="font-headline font-bold text-on-surface text-sm">Rp 450.000</p>
+</td>
+<td class="px-4 py-6">
+<div class="flex items-center gap-2 text-slate-500">
+<span class="material-symbols-outlined text-sm" data-icon="schedule">schedule</span>
+<span class="text-sm">60 menit</span>
+</div>
+</td>
+<td class="px-4 py-6">
+<span class="bg-primary-fixed text-on-primary-fixed text-[10px] font-bold px-3 py-1 rounded-full">Aktif</span>
+</td>
+<td class="px-8 py-6 text-right">
+<div class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-2 hover:bg-white rounded-lg text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-xl" data-icon="edit">edit</span>
+</button>
+<button class="p-2 hover:bg-white rounded-lg text-slate-400 hover:text-error transition-colors">
+<span class="material-symbols-outlined text-xl" data-icon="delete">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="group hover:bg-surface-container-low transition-colors duration-200">
+<td class="px-8 py-6 text-sm font-medium text-slate-400">02</td>
+<td class="px-4 py-6">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-orange-100 flex items-center justify-center text-orange-600">
+<span class="material-symbols-outlined" data-icon="psychology">psychology</span>
+</div>
+<div>
+<p class="font-headline font-bold text-on-surface">Intensif UTBK</p>
+<p class="text-[10px] text-slate-400">Persiapan Masuk PTN</p>
+</div>
+</div>
+</td>
+<td class="px-4 py-6">
+<span class="bg-tertiary-fixed text-on-tertiary-fixed text-[10px] font-bold px-3 py-1 rounded-full uppercase">SMA</span>
+</td>
+<td class="px-4 py-6">
+<p class="font-headline font-bold text-on-surface text-sm">Rp 1.850.000</p>
+</td>
+<td class="px-4 py-6">
+<div class="flex items-center gap-2 text-slate-500">
+<span class="material-symbols-outlined text-sm" data-icon="schedule">schedule</span>
+<span class="text-sm">90 menit</span>
+</div>
+</td>
+<td class="px-4 py-6">
+<span class="bg-primary-fixed text-on-primary-fixed text-[10px] font-bold px-3 py-1 rounded-full">Aktif</span>
+</td>
+<td class="px-8 py-6 text-right">
+<div class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-2 hover:bg-white rounded-lg text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-xl" data-icon="edit">edit</span>
+</button>
+<button class="p-2 hover:bg-white rounded-lg text-slate-400 hover:text-error transition-colors">
+<span class="material-symbols-outlined text-xl" data-icon="delete">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="group hover:bg-surface-container-low transition-colors duration-200">
+<td class="px-8 py-6 text-sm font-medium text-slate-400">03</td>
+<td class="px-4 py-6">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-indigo-100 flex items-center justify-center text-indigo-600">
+<span class="material-symbols-outlined" data-icon="biotech">biotech</span>
+</div>
+<div>
+<p class="font-headline font-bold text-on-surface">Paket SMP Sains</p>
+<p class="text-[10px] text-slate-400">Fokus Fisika &amp; Biologi</p>
+</div>
+</div>
+</td>
+<td class="px-4 py-6">
+<span class="bg-secondary-fixed text-on-secondary-fixed text-[10px] font-bold px-3 py-1 rounded-full uppercase">SMP</span>
+</td>
+<td class="px-4 py-6">
+<p class="font-headline font-bold text-on-surface text-sm">Rp 750.000</p>
+</td>
+<td class="px-4 py-6">
+<div class="flex items-center gap-2 text-slate-500">
+<span class="material-symbols-outlined text-sm" data-icon="schedule">schedule</span>
+<span class="text-sm">90 menit</span>
+</div>
+</td>
+<td class="px-4 py-6">
+<span class="bg-slate-100 text-slate-400 text-[10px] font-bold px-3 py-1 rounded-full">Nonaktif</span>
+</td>
+<td class="px-8 py-6 text-right">
+<div class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-2 hover:bg-white rounded-lg text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-xl" data-icon="edit">edit</span>
+</button>
+<button class="p-2 hover:bg-white rounded-lg text-slate-400 hover:text-error transition-colors">
+<span class="material-symbols-outlined text-xl" data-icon="delete">delete</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="px-8 py-6 flex justify-between items-center border-t border-slate-50">
+<p class="text-xs text-slate-400">Menampilkan 1-10 dari 24 paket</p>
+<div class="flex gap-1">
+<button class="w-8 h-8 flex items-center justify-center rounded-lg border border-slate-200 text-slate-400 hover:bg-slate-50">
+<span class="material-symbols-outlined text-sm" data-icon="chevron_left">chevron_left</span>
+</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-lg bg-primary text-white font-bold text-xs">1</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-lg border border-slate-200 text-slate-600 font-bold text-xs hover:bg-slate-50">2</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-lg border border-slate-200 text-slate-600 font-bold text-xs hover:bg-slate-50">3</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-lg border border-slate-200 text-slate-400 hover:bg-slate-50">
+<span class="material-symbols-outlined text-sm" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+</main>
+</body></html>

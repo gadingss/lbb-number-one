@@ -1,0 +1,123 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
+use App\Models\Pembayaran;
+use App\Models\Siswa;
+use App\Models\Paket;
+use Illuminate\Http\Request;
+
+class PembayaranController extends Controller
+{
+    // ===============================
+    // INDEX - Daftar Pembayaran
+    // ===============================
+    public function index()
+    {
+        $pembayarans = Pembayaran::with(['siswa.user', 'paket'])
+            ->latest()
+            ->get();
+
+        return view('admin.pembayaran.index', compact('pembayarans'));
+    }
+
+    // ===============================
+    // CREATE - Form Tambah Pembayaran
+    // ===============================
+    public function create()
+    {
+        $siswas = Siswa::with('user')->get();
+        $pakets = Paket::with('mataPelajaran')->get();
+
+        return view('admin.pembayaran.create', compact('siswas', 'pakets'));
+    }
+
+    // ===============================
+    // STORE - Simpan Pembayaran
+    // ===============================
+    public function store(Request $request)
+    {
+        $request->validate([
+            'siswa_id' => 'required|exists:siswas,id',
+            'paket_id' => 'required|exists:pakets,id',
+            'jumlah' => 'required|numeric|min:0',
+            'metode_pembayaran' => 'required|string',
+            'tanggal_bayar' => 'required|date',
+            'status' => 'required|in:pending,lunas,gagal',
+            'keterangan' => 'nullable|string',
+        ]);
+
+        Pembayaran::create($request->all());
+
+        return redirect()->route('admin.pembayaran.index')
+            ->with('success', 'Pembayaran berhasil ditambahkan');
+    }
+
+    // ===============================
+    // EDIT - Form Edit Pembayaran
+    // ===============================
+    public function edit(Pembayaran $pembayaran)
+    {
+        $siswas = Siswa::with('user')->get();
+        $pakets = Paket::with('mataPelajaran')->get();
+
+        return view('admin.pembayaran.edit', compact('pembayaran', 'siswas', 'pakets'));
+    }
+
+    // ===============================
+    // UPDATE - Update Pembayaran
+    // ===============================
+    public function update(Request $request, Pembayaran $pembayaran)
+    {
+        $request->validate([
+            'siswa_id' => 'required|exists:siswas,id',
+            'paket_id' => 'required|exists:pakets,id',
+            'jumlah' => 'required|numeric|min:0',
+            'metode_pembayaran' => 'required|string',
+            'tanggal_bayar' => 'required|date',
+            'status' => 'required|in:pending,lunas,gagal',
+            'keterangan' => 'nullable|string',
+        ]);
+
+        $pembayaran->update($request->all());
+
+        return redirect()->route('admin.pembayaran.index')
+            ->with('success', 'Pembayaran berhasil diperbarui');
+    }
+
+    // ===============================
+    // DESTROY - Hapus Pembayaran
+    // ===============================
+    public function destroy(Pembayaran $pembayaran)
+    {
+        $pembayaran->delete();
+
+        return redirect()->route('admin.pembayaran.index')
+            ->with('success', 'Pembayaran berhasil dihapus');
+    }
+
+    // ===============================
+    // LAPORAN - Cetak Laporan Pembayaran
+    // ===============================
+    public function laporan(Request $request)
+    {
+        $query = Pembayaran::with(['siswa.user', 'paket']);
+
+        // Filter berdasarkan tanggal
+        if ($request->tanggal_awal && $request->tanggal_akhir) {
+            $query->whereBetween('tanggal_bayar', [$request->tanggal_awal, $request->tanggal_akhir]);
+        }
+
+        // Filter berdasarkan status
+        if ($request->status) {
+            $query->where('status', $request->status);
+        }
+
+        $pembayarans = $query->latest()->get();
+        
+        $totalPendapatan = $pembayarans->where('status', 'lunas')->sum('jumlah');
+
+        return view('admin.pembayaran.laporan', compact('pembayarans', 'totalPendapatan'));
+    }
+}
