@@ -106,10 +106,28 @@
         jadwalContainer.style.opacity = '1';
         jadwalContainer.style.pointerEvents = 'auto';
         
-        // Reset all checkboxes
+        // Reset all checkboxes except those taken by Siswa themselves
+        const jadwalSiswa = @json($jadwalSiswa);
+        
         document.querySelectorAll('.slot-checkbox').forEach(cb => {
             cb.checked = false;
             cb.disabled = false;
+            
+            // Check if Siswa already has this slot taken
+            const label = cb.closest('label');
+            const hari = label.dataset.hari;
+            const jam = label.dataset.jam;
+            
+            const isTakenBySiswa = jadwalSiswa.some(j => j.hari === hari && j.jam_mulai === jam);
+            if(isTakenBySiswa) {
+                cb.disabled = true; // Mark as taken by Siswa themselves
+                // Optionally visually indicate it's the Siswa's own class
+                label.querySelector('div').classList.add('bg-error/10', 'border-error/30', 'text-error');
+                label.querySelector('div').title = 'Bentrok dengan jadwal Anda yang lain';
+            } else {
+                label.querySelector('div').classList.remove('bg-error/10', 'border-error/30', 'text-error');
+                label.querySelector('div').title = '';
+            }
         });
         updateSubmitButton();
 

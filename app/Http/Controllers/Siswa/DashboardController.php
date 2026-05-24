@@ -24,30 +24,29 @@ class DashboardController extends Controller
             return redirect()->route('login')->with('error', 'Data siswa tidak ditemukan');
         }
 
-        // Paket yang dimiliki (menampilkan paket yang terakhir kali dibeli)
-        $paket = Pembayaran::where('siswa_id', $siswa->id)
+        // Cari semua paket aktif (lunas dan sesinya belum habis)
+        $pembayarans = Pembayaran::where('siswa_id', $siswa->id)
             ->where('status', 'lunas')
-            ->with('paket')
-            ->latest()
-            ->first();
-
-        // Ambil semua paket yang sudah lunas untuk menghitung akumulasi total sesi
-        $semuaPaket = Pembayaran::where('siswa_id', $siswa->id)
-            ->where('status', 'lunas')
-            ->with('paket')
+            ->with('paket.mataPelajaran')
+            ->orderByDesc('id')
             ->get();
             
-        $totalKuotaSesi = $semuaPaket->sum(function($p) {
-            return $p->paket ? $p->paket->jumlah_pertemuan : 0;
-        });
+        $paketAktifList = [];
+        
+        foreach ($pembayarans as $pembayaran) {
+            if ($pembayaran->paket) {
+                // Hitung absensi spesifik untuk paket (pembayaran) ini
+                $sesiTerpakai = Absensi::whereHas('jadwal', function($q) use ($pembayaran) {
+                    $q->where('pembayaran_id', $pembayaran->id);
+                })->where('status', 'hadir')->count();
 
-        // Hitung total sesi terpakai (all-time kehadiran)
-        $sesiTerpakai = Absensi::where('siswa_id', $siswa->id)
-            ->where('status', 'hadir')
-            ->count();
-            
-        // Sisa sesi adalah akumulasi dari semua paket dikurangi total kehadiran
-        $sisaSesi = max(0, $totalKuotaSesi - $sesiTerpakai);
+                if ($sesiTerpakai < $pembayaran->paket->jumlah_pertemuan) {
+                    $pembayaran->sesi_terpakai = $sesiTerpakai;
+                    $pembayaran->sisa_sesi = $pembayaran->paket->jumlah_pertemuan - $sesiTerpakai;
+                    $paketAktifList[] = $pembayaran;
+                }
+            }
+        }
 
         // Riwayat pembayaran
         $riwayatPembayaran = Pembayaran::where('siswa_id', $siswa->id)
@@ -81,14 +80,12 @@ class DashboardController extends Controller
 
         return view('siswa.dashboard', compact(
             'siswa',
-            'paket',
+            'paketAktifList',
             'riwayatPembayaran',
             'riwayatLes',
             'totalPertemuan',
             'pertemuanBulanIni',
             'totalPembayaran',
-            'sesiTerpakai',
-            'sisaSesi',
             'jadwalTerdekat'
         ));
     }

@@ -96,7 +96,11 @@ class PaketController extends Controller
 
         $tutors = \App\Models\Tutor::where('mata_pelajaran_id', $paket->mata_pelajaran_id)->with('user')->get();
 
-        return view('siswa.paket.pilih_jadwal', compact('paket', 'tutors', 'kuotaJadwal'));
+        $jadwalSiswa = \App\Models\Jadwal::where('siswa_id', $siswa->id)
+            ->whereIn('status', ['aktif', 'pending', 'reschedule'])
+            ->get(['hari', 'jam_mulai', 'jam_selesai']);
+
+        return view('siswa.paket.pilih_jadwal', compact('paket', 'tutors', 'kuotaJadwal', 'jadwalSiswa'));
     }
 
     // ===============================
@@ -174,14 +178,33 @@ class PaketController extends Controller
                 $hari = $parts[0];
                 $waktu = explode('-', $parts[1]);
                 if (count($waktu) === 2) {
+                    $jam_mulai = $waktu[0] . ':00';
+                    $jam_selesai = $waktu[1] . ':00';
+                    
+                    // Cek bentrok jadwal Siswa
+                    $bentrokSiswa = \App\Models\Jadwal::where('siswa_id', $siswa->id)
+                        ->where('hari', $hari)
+                        ->whereIn('status', ['aktif', 'pending', 'reschedule'])
+                        ->where(function($query) use ($jam_mulai, $jam_selesai) {
+                            $query->where(function($q) use ($jam_mulai, $jam_selesai) {
+                                $q->where('jam_mulai', '<', $jam_selesai)
+                                  ->where('jam_selesai', '>', $jam_mulai);
+                            });
+                        })->exists();
+
+                    if ($bentrokSiswa) {
+                        return redirect()->back()
+                            ->with('error', "Maaf, Jadwal Anda bentrok pada hari $hari jam $jam_mulai - $jam_selesai dengan kelas Anda yang lain.");
+                    }
+
                     \App\Models\Jadwal::create([
                         'tutor_id' => $request->tutor_id,
                         'siswa_id' => $siswa->id,
                         'pembayaran_id' => $pembayaran->id,
                         'mata_pelajaran_id' => $paket->mata_pelajaran_id,
                         'hari' => $hari,
-                        'jam_mulai' => $waktu[0] . ':00',
-                        'jam_selesai' => $waktu[1] . ':00',
+                        'jam_mulai' => $jam_mulai,
+                        'jam_selesai' => $jam_selesai,
                         'status' => 'pending',
                     ]);
                 }

@@ -12,63 +12,58 @@
         <p class="text-on-surface-variant mt-2 font-medium">Siap untuk melanjutkan petualangan belajarmu hari ini?</p>
     </section>
 
-    <!-- Hero Active Package Card -->
-    @if($paket)
-    <section class="relative overflow-hidden rounded-2xl sm:rounded-[2rem] bg-gradient-to-br from-primary to-primary-container p-6 sm:p-10 text-on-primary-container shadow-2xl">
-        <div class="absolute top-0 right-0 -mr-16 -mt-16 w-80 h-80 bg-white/10 rounded-full blur-3xl"></div>
-        <div class="relative z-10 grid md:grid-cols-2 gap-8 items-center">
-            <div>
-                <span class="px-4 py-1.5 rounded-full bg-white/20 text-white text-xs font-bold tracking-widest uppercase mb-4 inline-block">Paket Aktif Anda</span>
-                <h2 class="text-2xl sm:text-4xl md:text-5xl font-headline font-black text-white mb-2">{{ $paket->paket->nama_paket }}</h2>
-                <p class="text-xl text-primary-fixed font-medium flex items-center gap-2">
-                    <span class="material-symbols-outlined text-lg">school</span> {{ $paket->paket->mataPelajaran->nama_mapel ?? 'Mata Pelajaran Umum' }}
-                </p>
-                
-                <div class="flex flex-wrap gap-2 sm:gap-3 mt-6 sm:mt-10">
-                    <div class="bg-white/10 backdrop-blur-md px-5 py-3 rounded-2xl border border-white/10">
-                        <p class="text-[10px] text-white/60 uppercase font-bold tracking-wider mb-1">Total Sesi</p>
-                        <p class="text-lg font-bold text-white">{{ $paket->paket->jumlah_pertemuan }} Pertemuan</p>
+    <!-- Hero Active Package Cards -->
+    @if(count($paketAktifList) > 0)
+        <div class="space-y-6">
+            <h4 class="text-xl font-bold text-on-surface">Paket Aktif Anda ({{ count($paketAktifList) }})</h4>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            @foreach($paketAktifList as $paket)
+                <section class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-primary to-primary-container p-6 text-on-primary-container shadow-xl">
+                    <div class="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
+                    <div class="relative z-10 flex flex-col h-full justify-between">
+                        <div>
+                            <span class="px-3 py-1 rounded-full bg-white/20 text-white text-[10px] font-bold tracking-widest uppercase mb-3 inline-block">ID: {{ $paket->order_id }}</span>
+                            <h2 class="text-2xl font-headline font-black text-white mb-1">{{ $paket->paket->nama_paket }}</h2>
+                            <p class="text-sm text-primary-fixed font-medium flex items-center gap-1.5 mb-6">
+                                <span class="material-symbols-outlined text-sm">school</span> {{ $paket->paket->mataPelajaran->nama_mapel ?? 'Mata Pelajaran Umum' }}
+                            </p>
+                        </div>
+                        
+                        <div>
+                            <div class="flex gap-2 mb-6">
+                                <div class="bg-white/10 backdrop-blur-md px-3 py-2 rounded-xl flex-1 text-center border border-white/10">
+                                    <p class="text-[9px] text-white/60 uppercase font-bold tracking-wider">Terpakai</p>
+                                    <p class="text-base font-bold text-white">{{ $paket->sesi_terpakai }}</p>
+                                </div>
+                                <div class="bg-primary-fixed/20 backdrop-blur-md px-3 py-2 rounded-xl flex-1 text-center border border-primary-fixed/20">
+                                    <p class="text-[9px] text-white uppercase font-bold tracking-wider">Sisa</p>
+                                    <p class="text-base font-bold text-white">{{ $paket->sisa_sesi }}</p>
+                                </div>
+                                <div class="bg-white/10 backdrop-blur-md px-3 py-2 rounded-xl flex-1 text-center border border-white/10">
+                                    <p class="text-[9px] text-white/60 uppercase font-bold tracking-wider">Total</p>
+                                    <p class="text-base font-bold text-white">{{ $paket->paket->jumlah_pertemuan }}</p>
+                                </div>
+                            </div>
+                            
+                            @php
+                                $totalSesi = $paket->paket->jumlah_pertemuan;
+                                $persentase = $totalSesi > 0 ? round(($paket->sesi_terpakai / $totalSesi) * 100) : 0;
+                            @endphp
+                            <div class="space-y-2">
+                                <div class="flex justify-between items-end">
+                                    <p class="text-white text-xs font-bold">Progress</p>
+                                    <p class="text-white/80 text-[10px] font-medium">{{ $persentase }}% Selesai</p>
+                                </div>
+                                <div class="w-full bg-white/30 rounded-full h-1.5">
+                                    <div class="bg-white h-1.5 rounded-full" style="width: {{ $persentase }}%"></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="bg-white/10 backdrop-blur-md px-5 py-3 rounded-2xl border border-white/10">
-                        <p class="text-[10px] text-white/60 uppercase font-bold tracking-wider mb-1">Terpakai</p>
-                        <p class="text-lg font-bold text-white">{{ $sesiTerpakai }} Sesi</p>
-                    </div>
-                    <div class="bg-primary-fixed/20 backdrop-blur-md px-5 py-3 rounded-2xl border border-primary-fixed/20">
-                        <p class="text-[10px] text-white uppercase font-bold tracking-wider mb-1">Sisa Sesi</p>
-                        <p class="text-lg font-bold text-white">{{ $sisaSesi }} Sesi</p>
-                    </div>
-                    <div class="bg-white/90 text-primary px-5 py-3 rounded-2xl flex items-center justify-center">
-                        <p class="text-lg font-bold">Rp {{ number_format($paket->paket->harga, 0, ',', '.') }}</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="hidden md:block">
-                @php
-                    $totalSesi = $paket->paket->jumlah_pertemuan;
-                    $persentase = $totalSesi > 0 ? round(($sesiTerpakai / $totalSesi) * 100) : 0;
-                    $sisaUntukSertifikat = $totalSesi - $sesiTerpakai;
-                @endphp
-                <!-- Custom Stepped Progress Bar as per DS -->
-                <div class="space-y-4">
-                    <div class="flex justify-between items-end">
-                        <p class="text-white font-bold">Progress Pembelajaran</p>
-                        <p class="text-white/80 text-sm font-medium">{{ $persentase }}% Selesai</p>
-                    </div>
-                    <div class="flex gap-1.5 h-3">
-                        @for($i = 0; $i < 8; $i++)
-                            @if($i < ($persentase / 100 * 8))
-                                <div class="flex-1 bg-white rounded-sm"></div>
-                            @else
-                                <div class="flex-1 bg-white/30 rounded-sm"></div>
-                            @endif
-                        @endfor
-                    </div>
-                    <p class="text-xs text-white/60 italic">*Selesaikan {{ max(0, $sisaUntukSertifikat) }} sesi berikutnya untuk mendapatkan sertifikat capaian.</p>
-                </div>
+                </section>
+            @endforeach
             </div>
         </div>
-    </section>
     @else
     <div class="bg-surface-container-highest border border-outline-variant rounded-2xl sm:rounded-[2rem] p-6 sm:p-10 mb-8 flex flex-col items-center justify-center text-center">
         <h3 class="text-xl font-headline font-bold text-on-surface mb-2">Belum Memiliki Paket Aktif</h3>
