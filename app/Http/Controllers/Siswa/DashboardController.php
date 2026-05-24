@@ -52,7 +52,7 @@ class DashboardController extends Controller
         // Riwayat pembayaran
         $riwayatPembayaran = Pembayaran::where('siswa_id', $siswa->id)
             ->with('paket')
-            ->latest()
+            ->orderByDesc('id')
             ->limit(5)
             ->get();
 
@@ -74,6 +74,11 @@ class DashboardController extends Controller
             ->where('status', 'lunas')
             ->sum('jumlah');
 
+        // Jadwal Terdekat
+        $jadwalTerdekat = \App\Models\Jadwal::where('siswa_id', $siswa->id)
+            ->with(['mataPelajaran', 'tutor.user'])
+            ->get();
+
         return view('siswa.dashboard', compact(
             'siswa',
             'paket',
@@ -83,7 +88,8 @@ class DashboardController extends Controller
             'pertemuanBulanIni',
             'totalPembayaran',
             'sesiTerpakai',
-            'sisaSesi'
+            'sisaSesi',
+            'jadwalTerdekat'
         ));
     }
 }

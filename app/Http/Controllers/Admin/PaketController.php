@@ -13,7 +13,7 @@ class PaketController extends Controller
     // ===============================
     public function index()
     {
-        $pakets = Paket::latest()->paginate(10);
+        $pakets = Paket::with('mataPelajaran')->latest()->paginate(10);
         
         $totalPaket = Paket::count();
         $avgPrice = Paket::avg('harga') ?? 0;
@@ -29,7 +29,8 @@ class PaketController extends Controller
     // ===============================
     public function create()
     {
-        return view('admin.paket.create');
+        $mataPelajarans = \App\Models\MataPelajaran::all();
+        return view('admin.paket.create', compact('mataPelajarans'));
     }
 
     // ===============================
@@ -39,7 +40,9 @@ class PaketController extends Controller
     {
         $validated = $request->validate([
             'nama_paket' => 'required|string|max:100',
+            'mata_pelajaran_id' => 'required|exists:mata_pelajarans,id',
             'jumlah_pertemuan' => 'required|integer|min:1',
+            'durasi_pertemuan' => 'required|integer|min:1',
             'harga' => 'required|numeric|min:0',
             'deskripsi' => 'nullable|string',
         ]);
@@ -55,7 +58,8 @@ class PaketController extends Controller
     // ===============================
     public function edit(Paket $paket)
     {
-        return view('admin.paket.edit', compact('paket'));
+        $mataPelajarans = \App\Models\MataPelajaran::all();
+        return view('admin.paket.edit', compact('paket', 'mataPelajarans'));
     }
 
     // ===============================
@@ -65,7 +69,9 @@ class PaketController extends Controller
     {
         $validated = $request->validate([
             'nama_paket' => 'required|string|max:100',
+            'mata_pelajaran_id' => 'required|exists:mata_pelajarans,id',
             'jumlah_pertemuan' => 'required|integer|min:1',
+            'durasi_pertemuan' => 'required|integer|min:1',
             'harga' => 'required|numeric|min:0',
             'deskripsi' => 'nullable|string',
         ]);

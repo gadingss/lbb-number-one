@@ -81,7 +81,9 @@
                         <th class="px-8 py-4 text-[10px] font-bold text-slate-400 uppercase tracking-widest whitespace-nowrap">No</th>
                         <th class="px-4 py-4 text-[10px] font-bold text-slate-400 uppercase tracking-widest whitespace-nowrap">Nama Paket & Deskripsi</th>
                         <th class="px-4 py-4 text-[10px] font-bold text-slate-400 uppercase tracking-widest whitespace-nowrap">Harga</th>
+                        <th class="px-4 py-4 text-[10px] font-bold text-slate-400 uppercase tracking-widest whitespace-nowrap">Mapel</th>
                         <th class="px-4 py-4 text-[10px] font-bold text-slate-400 uppercase tracking-widest whitespace-nowrap">Jumlah Pertemuan</th>
+                        <th class="px-4 py-4 text-[10px] font-bold text-slate-400 uppercase tracking-widest whitespace-nowrap">Durasi</th>
                         <th class="px-4 py-4 text-[10px] font-bold text-slate-400 uppercase tracking-widest whitespace-nowrap">Status</th>
                         <th class="px-8 py-4 text-[10px] font-bold text-slate-400 uppercase tracking-widest text-right whitespace-nowrap">Aksi</th>
                     </tr>
@@ -105,9 +107,18 @@
                                 <p class="font-headline font-bold text-slate-800 dark:text-slate-100 text-sm">Rp {{ number_format($paket->harga, 0, ',', '.') }}</p>
                             </td>
                             <td class="px-4 py-6">
+                                <span class="bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-400 text-xs font-bold px-3 py-1.5 rounded-lg whitespace-nowrap">{{ $paket->mataPelajaran->nama_mapel ?? 'Umum' }}</span>
+                            </td>
+                            <td class="px-4 py-6">
                                 <div class="flex items-center gap-2 text-slate-500">
                                     <span class="material-symbols-outlined text-sm">schedule</span>
                                     <span class="text-sm font-medium">{{ $paket->jumlah_pertemuan }} Sesi</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-6">
+                                <div class="flex items-center gap-2 text-slate-500">
+                                    <span class="material-symbols-outlined text-sm">timer</span>
+                                    <span class="text-sm font-medium">{{ $paket->durasi_pertemuan }} Menit</span>
                                 </div>
                             </td>
                             <td class="px-4 py-6">
@@ -130,7 +141,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="6" class="px-8 py-16 text-center">
+                            <td colspan="8" class="px-8 py-16 text-center">
                                 <div class="flex flex-col items-center justify-center text-slate-400">
                                     <span class="material-symbols-outlined text-5xl mb-4 opacity-50">inventory_2</span>
                                     <p class="font-headline font-bold text-lg text-slate-600">Belum ada paket les</p>

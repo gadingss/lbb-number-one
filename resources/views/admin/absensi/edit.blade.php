@@ -21,7 +21,7 @@
                 <select name="jadwal_id" class="w-full border rounded px-3 py-2" required>
                     @foreach($jadwals as $jadwal)
                         <option value="{{ $jadwal->id }}" {{ $absensi->jadwal_id == $jadwal->id ? 'selected' : '' }}>
-                            {{ $jadwal->tutor->user->name }} - {{ $jadwal->mataPelajaran->nama_mapel }}
+                            [{{ $jadwal->mataPelajaran->nama_mapel }}] Siswa: {{ $jadwal->siswa->user->name ?? 'N/A' }} | Tutor: {{ $jadwal->tutor->user->name ?? 'N/A' }}
                         </option>
                     @endforeach
                 </select>
@@ -36,7 +36,6 @@
                 <label class="block text-sm font-medium text-gray-700 mb-1">Status</label>
                 <select name="status" class="w-full border rounded px-3 py-2" required>
                     <option value="hadir" {{ $absensi->status == 'hadir' ? 'selected' : '' }}>Hadir</option>
-                    <option value="tidak_hadir" {{ $absensi->status == 'tidak_hadir' ? 'selected' : '' }}>Tidak Hadir</option>
                     <option value="izin" {{ $absensi->status == 'izin' ? 'selected' : '' }}>Izin</option>
                     <option value="alpha" {{ $absensi->status == 'alpha' ? 'selected' : '' }}>Alpha</option>
                 </select>
@@ -47,10 +46,7 @@
                 <input type="time" name="jam_absen" value="{{ $absensi->jam_absen }}" class="w-full border rounded px-3 py-2">
             </div>
 
-            <div class="md:col-span-2">
-                <label class="block text-sm font-medium text-gray-700 mb-1">Catatan</label>
-                <textarea name="catatan" rows="2" class="w-full border rounded px-3 py-2">{{ $absensi->catatan }}</textarea>
-            </div>
+
 
             <div class="md:col-span-2">
                 <label class="block text-sm font-medium text-gray-700 mb-1">Hasil Pertemuan</label>

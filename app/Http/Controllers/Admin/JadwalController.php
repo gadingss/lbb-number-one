@@ -20,7 +20,11 @@ class JadwalController extends Controller
             ->latest()
             ->get();
 
-        return view('admin.jadwal.index', compact('jadwals'));
+        $tutors = Tutor::with('user')->get();
+        $mapels = MataPelajaran::all();
+        $siswas = Siswa::with('user')->get();
+
+        return view('admin.jadwal.index', compact('jadwals', 'tutors', 'mapels', 'siswas'));
     }
 
     // ===============================
@@ -48,6 +52,11 @@ class JadwalController extends Controller
             'jam_mulai' => 'required',
             'jam_selesai' => 'required|after:jam_mulai',
         ]);
+
+        $tutor = Tutor::find($request->tutor_id);
+        if ($tutor && $tutor->active_students_count >= $tutor->kuota_siswa) {
+            return back()->withErrors(['tutor_id' => 'Gagal: Tutor ini sudah mencapai batas maksimum kuota siswa (Penuh).'])->withInput();
+        }
 
         Jadwal::create([
             'tutor_id' => $request->tutor_id,

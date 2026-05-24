@@ -20,17 +20,96 @@ class PaketController extends Controller
         $user = auth()->user();
         $siswa = Siswa::where('user_id', $user->id)->first();
         
-        // Ambil paket yang sudah dibeli (lunas)
+        // Ambil paket yang sudah dibeli (lunas) dan cek mana saja yang belum habis
         $paketAktif = null;
+        $activePaketIds = [];
+
         if ($siswa) {
-            $paketAktif = Pembayaran::where('siswa_id', $siswa->id)
+            $pembayarans = Pembayaran::where('siswa_id', $siswa->id)
                 ->where('status', 'lunas')
                 ->with('paket')
-                ->latest()
-                ->first();
+                ->get();
+                
+            foreach ($pembayarans as $pembayaran) {
+                // Hitung pertemuan yang sudah terlaksana untuk paket ini
+                $absensiCount = \App\Models\Absensi::whereHas('jadwal', function($q) use ($pembayaran) {
+                    $q->where('pembayaran_id', $pembayaran->id);
+                })->count();
+                
+                if ($pembayaran->paket && $absensiCount < $pembayaran->paket->jumlah_pertemuan) {
+                    // Paket ini masih aktif (belum habis)
+                    $activePaketIds[] = $pembayaran->paket_id;
+                    $paketAktif = $pembayaran; // Simpan salah satu untuk banner
+                }
+            }
         }
 
-        return view('siswa.paket.index', compact('pakets', 'paketAktif'));
+        // Cari paket paling populer berdasarkan jumlah pembayaran lunas
+        $popularPaketId = \App\Models\Pembayaran::where('status', 'lunas')
+            ->select('paket_id')
+            ->groupBy('paket_id')
+            ->orderByRaw('COUNT(*) DESC')
+            ->value('paket_id');
+            
+        // Jika belum ada data pembayaran, jadikan paket kedua (jika ada) sebagai default populer
+        if (!$popularPaketId && $pakets->count() > 0) {
+            $popularPaketId = $pakets->count() > 1 ? $pakets[1]->id : $pakets[0]->id;
+        }
+
+        return view('siswa.paket.index', compact('pakets', 'paketAktif', 'popularPaketId', 'activePaketIds'));
+    }
+
+    // ===============================
+    // PILIH JADWAL & TUTOR
+    // ===============================
+    public function pilihJadwal(Paket $paket)
+    {
+        $user = auth()->user();
+        $siswa = Siswa::where('user_id', $user->id)->first();
+
+        if (!$siswa) {
+            return redirect()->route('siswa.paket.index')
+                ->with('error', 'Data siswa tidak ditemukan');
+        }
+
+        // Cek apakah paket ini sedang aktif dan belum habis
+        $pembayaranAktif = Pembayaran::where('siswa_id', $siswa->id)
+            ->where('paket_id', $paket->id)
+            ->where('status', 'lunas')
+            ->latest()
+            ->first();
+
+        if ($pembayaranAktif) {
+            $absensiCount = \App\Models\Absensi::whereHas('jadwal', function($q) use ($pembayaranAktif) {
+                $q->where('pembayaran_id', $pembayaranAktif->id);
+            })->count();
+
+            if ($absensiCount < $paket->jumlah_pertemuan) {
+                return redirect()->route('siswa.paket.index')
+                    ->with('error', 'Anda tidak dapat memilih paket ini lagi karena paket sebelumnya belum habis.');
+            }
+        }
+
+        // Batasan jadwal yang bisa dipilih dalam seminggu.
+        // Dibatasi maksimal 5 slot per minggu sesuai request admin
+        $kuotaJadwal = min($paket->jumlah_pertemuan, 5);
+
+        $tutors = \App\Models\Tutor::where('mata_pelajaran_id', $paket->mata_pelajaran_id)->with('user')->get();
+
+        return view('siswa.paket.pilih_jadwal', compact('paket', 'tutors', 'kuotaJadwal'));
+    }
+
+    // ===============================
+    // AJAX: Get Tutor Schedules
+    // ===============================
+    public function getTutorSchedules($tutor_id)
+    {
+        $jadwals = \App\Models\Jadwal::withoutGlobalScope('exclude_pending')
+            ->where('tutor_id', $tutor_id)
+            ->whereIn('status', ['aktif', 'reschedule', 'pending'])
+            ->get(['hari', 'jam_mulai', 'jam_selesai']);
+
+        return response()->json($jadwals);
     }
 
     // ===============================
@@ -40,6 +119,9 @@ class PaketController extends Controller
     {
         $request->validate([
             'paket_id' => 'required|exists:pakets,id',
+            'tutor_id' => 'required|exists:tutors,id',
+            'jadwals' => 'required|array',
+            'jadwals.*' => 'string' // Format: "Senin|15:00-17:00"
         ]);
 
         $user = auth()->user();
@@ -51,6 +133,24 @@ class PaketController extends Controller
         }
 
         $paket = Paket::findOrFail($request->paket_id);
+
+        // Cek apakah paket ini sedang aktif dan belum habis
+        $pembayaranAktif = Pembayaran::where('siswa_id', $siswa->id)
+            ->where('paket_id', $paket->id)
+            ->where('status', 'lunas')
+            ->latest()
+            ->first();
+
+        if ($pembayaranAktif) {
+            $absensiCount = \App\Models\Absensi::whereHas('jadwal', function($q) use ($pembayaranAktif) {
+                $q->where('pembayaran_id', $pembayaranAktif->id);
+            })->count();
+
+            if ($absensiCount < $paket->jumlah_pertemuan) {
+                return redirect()->route('siswa.paket.index')
+                    ->with('error', 'Anda masih memiliki paket ini yang belum habis sesinya.');
+            }
+        }
         
         // Buat Order ID Unik
         $orderId = 'LBB-' . time() . '-' . $siswa->id;
@@ -66,6 +166,27 @@ class PaketController extends Controller
             'metode_pembayaran' => 'Midtrans',
             'keterangan' => 'Pemesanan paket ' . $paket->nama_paket,
         ]);
+
+        // Buat record jadwal untuk setiap slot yang dipilih
+        foreach ($request->jadwals as $slot) {
+            $parts = explode('|', $slot);
+            if (count($parts) === 2) {
+                $hari = $parts[0];
+                $waktu = explode('-', $parts[1]);
+                if (count($waktu) === 2) {
+                    \App\Models\Jadwal::create([
+                        'tutor_id' => $request->tutor_id,
+                        'siswa_id' => $siswa->id,
+                        'pembayaran_id' => $pembayaran->id,
+                        'mata_pelajaran_id' => $paket->mata_pelajaran_id,
+                        'hari' => $hari,
+                        'jam_mulai' => $waktu[0] . ':00',
+                        'jam_selesai' => $waktu[1] . ':00',
+                        'status' => 'pending',
+                    ]);
+                }
+            }
+        }
 
         // Konfigurasi Midtrans
         \Midtrans\Config::$serverKey = config('midtrans.serverKey', env('MIDTRANS_SERVER_KEY'));

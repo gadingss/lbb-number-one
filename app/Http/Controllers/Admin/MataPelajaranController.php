@@ -31,11 +31,11 @@ class MataPelajaranController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama' => 'required|string|max:100|unique:mata_pelajarans,nama',
+            'nama_mapel' => 'required|string|max:100|unique:mata_pelajarans,nama_mapel',
             'deskripsi' => 'nullable|string',
         ]);
 
-        MataPelajaran::create($request->only(['nama', 'deskripsi']));
+        MataPelajaran::create($request->only(['nama_mapel', 'deskripsi']));
 
         return redirect()->route('admin.mata-pelajaran.index')
             ->with('success', 'Mata pelajaran berhasil ditambahkan');
@@ -55,11 +55,11 @@ class MataPelajaranController extends Controller
     public function update(Request $request, MataPelajaran $mata_pelajaran)
     {
         $request->validate([
-            'nama' => 'required|string|max:100|unique:mata_pelajarans,nama,' . $mata_pelajaran->id,
+            'nama_mapel' => 'required|string|max:100|unique:mata_pelajarans,nama_mapel,' . $mata_pelajaran->id,
             'deskripsi' => 'nullable|string',
         ]);
 
-        $mata_pelajaran->update($request->only(['nama', 'deskripsi']));
+        $mata_pelajaran->update($request->only(['nama_mapel', 'deskripsi']));
 
         return redirect()->route('admin.mata-pelajaran.index')
             ->with('success', 'Mata pelajaran berhasil diperbarui');

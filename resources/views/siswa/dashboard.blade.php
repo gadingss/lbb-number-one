@@ -1,152 +1,228 @@
 @extends('layouts.siswa')
 
-@section('title', 'Dashboard Siswa')
+@section('title', 'Dashboard')
 
 @section('content')
-<div class="mb-8">
-    <h2 class="text-2xl font-bold text-gray-800">
-        Dashboard Siswa
-    </h2>
-    <p class="text-gray-500 text-sm mt-1">
-        Selamat datang, 
-        <span class="font-semibold text-indigo-600">
-            {{ auth()->user()->name }}
-        </span>
-    </p>
-</div>
+<div class="max-w-7xl mx-auto space-y-10">
+    <!-- Welcome Header -->
+    <section>
+        <h3 class="text-2xl sm:text-display-lg font-headline text-on-surface leading-tight tracking-tight">
+            Selamat datang kembali, <span class="text-primary">{{ explode(' ', auth()->user()->name)[0] }}</span>!
+        </h3>
+        <p class="text-on-surface-variant mt-2 font-medium">Siap untuk melanjutkan petualangan belajarmu hari ini?</p>
+    </section>
 
-{{-- ===================== PAKET AKTIF ===================== --}}
-@if($paket)
-<div class="bg-gradient-to-r from-blue-600 to-blue-700 text-white p-6 rounded-xl shadow mb-8">
-    <h3 class="text-lg font-semibold mb-2">Paket Aktif Anda</h3>
-    <p class="text-3xl font-bold">{{ $paket->paket->nama_paket }}</p>
-    <p class="text-blue-100 mt-1">{{ $paket->paket->mataPelajaran->nama_mapel ?? 'Mata Pelajaran Umum' }}</p>
-    <div class="mt-4 flex flex-wrap gap-4">
-        <span class="bg-white/20 px-3 py-1 rounded text-sm">
-            Total Sesi: {{ $paket->paket->jumlah_pertemuan }}
-        </span>
-        <span class="bg-white/20 px-3 py-1 rounded text-sm">
-            Telah Terpakai: {{ $sesiTerpakai }}
-        </span>
-        <span class="bg-white/30 px-3 py-1 rounded text-sm font-bold shadow-sm {{ $sisaSesi <= 2 ? 'text-red-200' : 'text-green-100' }}">
-            Sisa Sesi: {{ $sisaSesi }}
-        </span>
-        <span class="bg-white/20 px-3 py-1 rounded text-sm">
-            Rp {{ number_format($paket->paket->harga, 0, ',', '.') }}
-        </span>
+    <!-- Hero Active Package Card -->
+    @if($paket)
+    <section class="relative overflow-hidden rounded-2xl sm:rounded-[2rem] bg-gradient-to-br from-primary to-primary-container p-6 sm:p-10 text-on-primary-container shadow-2xl">
+        <div class="absolute top-0 right-0 -mr-16 -mt-16 w-80 h-80 bg-white/10 rounded-full blur-3xl"></div>
+        <div class="relative z-10 grid md:grid-cols-2 gap-8 items-center">
+            <div>
+                <span class="px-4 py-1.5 rounded-full bg-white/20 text-white text-xs font-bold tracking-widest uppercase mb-4 inline-block">Paket Aktif Anda</span>
+                <h2 class="text-2xl sm:text-4xl md:text-5xl font-headline font-black text-white mb-2">{{ $paket->paket->nama_paket }}</h2>
+                <p class="text-xl text-primary-fixed font-medium flex items-center gap-2">
+                    <span class="material-symbols-outlined text-lg">school</span> {{ $paket->paket->mataPelajaran->nama_mapel ?? 'Mata Pelajaran Umum' }}
+                </p>
+                
+                <div class="flex flex-wrap gap-2 sm:gap-3 mt-6 sm:mt-10">
+                    <div class="bg-white/10 backdrop-blur-md px-5 py-3 rounded-2xl border border-white/10">
+                        <p class="text-[10px] text-white/60 uppercase font-bold tracking-wider mb-1">Total Sesi</p>
+                        <p class="text-lg font-bold text-white">{{ $paket->paket->jumlah_pertemuan }} Pertemuan</p>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur-md px-5 py-3 rounded-2xl border border-white/10">
+                        <p class="text-[10px] text-white/60 uppercase font-bold tracking-wider mb-1">Terpakai</p>
+                        <p class="text-lg font-bold text-white">{{ $sesiTerpakai }} Sesi</p>
+                    </div>
+                    <div class="bg-primary-fixed/20 backdrop-blur-md px-5 py-3 rounded-2xl border border-primary-fixed/20">
+                        <p class="text-[10px] text-white uppercase font-bold tracking-wider mb-1">Sisa Sesi</p>
+                        <p class="text-lg font-bold text-white">{{ $sisaSesi }} Sesi</p>
+                    </div>
+                    <div class="bg-white/90 text-primary px-5 py-3 rounded-2xl flex items-center justify-center">
+                        <p class="text-lg font-bold">Rp {{ number_format($paket->paket->harga, 0, ',', '.') }}</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="hidden md:block">
+                @php
+                    $totalSesi = $paket->paket->jumlah_pertemuan;
+                    $persentase = $totalSesi > 0 ? round(($sesiTerpakai / $totalSesi) * 100) : 0;
+                    $sisaUntukSertifikat = $totalSesi - $sesiTerpakai;
+                @endphp
+                <!-- Custom Stepped Progress Bar as per DS -->
+                <div class="space-y-4">
+                    <div class="flex justify-between items-end">
+                        <p class="text-white font-bold">Progress Pembelajaran</p>
+                        <p class="text-white/80 text-sm font-medium">{{ $persentase }}% Selesai</p>
+                    </div>
+                    <div class="flex gap-1.5 h-3">
+                        @for($i = 0; $i < 8; $i++)
+                            @if($i < ($persentase / 100 * 8))
+                                <div class="flex-1 bg-white rounded-sm"></div>
+                            @else
+                                <div class="flex-1 bg-white/30 rounded-sm"></div>
+                            @endif
+                        @endfor
+                    </div>
+                    <p class="text-xs text-white/60 italic">*Selesaikan {{ max(0, $sisaUntukSertifikat) }} sesi berikutnya untuk mendapatkan sertifikat capaian.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    @else
+    <div class="bg-surface-container-highest border border-outline-variant rounded-2xl sm:rounded-[2rem] p-6 sm:p-10 mb-8 flex flex-col items-center justify-center text-center">
+        <h3 class="text-xl font-headline font-bold text-on-surface mb-2">Belum Memiliki Paket Aktif</h3>
+        <p class="text-on-surface-variant mb-6">Silakan pilih paket les terlebih dahulu untuk memulai pembelajaran</p>
+        <a href="{{ route('siswa.paket.index') }}" class="bg-primary hover:bg-primary/90 text-on-primary font-bold px-8 py-3 rounded-xl transition-colors">
+            Pilih Paket
+        </a>
     </div>
-</div>
-@else
-<div class="bg-yellow-50 border border-yellow-200 rounded-lg p-6 mb-8">
-    <h3 class="text-lg font-semibold text-yellow-800 mb-2">Belum Memiliki Paket</h3>
-    <p class="text-yellow-700 mb-4">Silakan pilih paket les terlebih dahulu</p>
-    <a href="{{ route('siswa.paket.index') }}" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded inline-block">
-        Pilih Paket
-    </a>
-</div>
-@endif
+    @endif
 
-{{-- ===================== STATISTIK ===================== --}}
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+    <!-- Stats Bento Grid -->
+    <section class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+        <!-- Stat Card 1 -->
+        <div class="bg-surface-container-lowest p-5 sm:p-8 rounded-[1.5rem] shadow-[0_12px_32px_-4px_rgba(13,28,46,0.06)] relative overflow-hidden group">
+            <div class="absolute -right-4 -bottom-4 w-24 h-24 bg-primary/5 rounded-full group-hover:scale-150 transition-transform duration-500"></div>
+            <p class="text-on-surface-variant font-headline text-label-md font-bold tracking-wide uppercase mb-4">Total Pertemuan</p>
+            <div class="flex items-end gap-3">
+                <span class="text-3xl sm:text-5xl font-headline font-black text-primary">{{ $totalPertemuan ?? 0 }}</span>
+                <span class="text-on-surface-variant font-medium pb-2 text-sm">Sesi</span>
+            </div>
+        </div>
 
-    <div class="bg-blue-600 text-white p-6 rounded-xl shadow">
-        <h3 class="text-lg">Total Pertemuan</h3>
-        <p class="text-3xl font-bold mt-2">{{ $totalPertemuan ?? 0 }}</p>
+        <!-- Stat Card 2 -->
+        <div class="bg-surface-container-lowest p-5 sm:p-8 rounded-[1.5rem] shadow-[0_12px_32px_-4px_rgba(13,28,46,0.06)] relative overflow-hidden group">
+            <div class="absolute -right-4 -bottom-4 w-24 h-24 bg-tertiary/5 rounded-full group-hover:scale-150 transition-transform duration-500"></div>
+            <p class="text-on-surface-variant font-headline text-label-md font-bold tracking-wide uppercase mb-4">Bulan Ini</p>
+            <div class="flex items-end gap-3">
+                <span class="text-3xl sm:text-5xl font-headline font-black text-tertiary">{{ $pertemuanBulanIni ?? 0 }}</span>
+                <span class="text-on-surface-variant font-medium pb-2 text-sm">Sesi</span>
+            </div>
+        </div>
+
+        <!-- Stat Card 3 -->
+        <div class="bg-surface-container-lowest p-5 sm:p-8 rounded-[1.5rem] shadow-[0_12px_32px_-4px_rgba(13,28,46,0.06)] relative overflow-hidden group">
+            <div class="absolute -right-4 -bottom-4 w-24 h-24 bg-secondary/5 rounded-full group-hover:scale-150 transition-transform duration-500"></div>
+            <p class="text-on-surface-variant font-headline text-label-md font-bold tracking-wide uppercase mb-4">Total Pembayaran</p>
+            <div class="space-y-1">
+                <span class="text-xl sm:text-3xl font-headline font-black text-secondary">Rp {{ number_format($totalPembayaran ?? 0, 0, ',', '.') }}</span>
+                <p class="text-on-surface-variant font-medium text-xs">Akumulasi Seluruhnya</p>
+            </div>
+        </div>
+
+        <!-- Stat Card 4 -->
+        <div class="bg-surface-container-lowest p-5 sm:p-8 rounded-[1.5rem] shadow-[0_12px_32px_-4px_rgba(13,28,46,0.06)] relative overflow-hidden group">
+            <div class="absolute -right-4 -bottom-4 w-24 h-24 bg-primary-fixed-dim/10 rounded-full group-hover:scale-150 transition-transform duration-500"></div>
+            <p class="text-on-surface-variant font-headline text-label-md font-bold tracking-wide uppercase mb-4">Status Paket</p>
+            <div class="flex items-center gap-3">
+                <div class="w-4 h-4 rounded-full {{ $paket ? 'bg-primary animate-pulse' : 'bg-outline' }}"></div>
+                <span class="text-xl sm:text-3xl font-headline font-black text-on-surface">{{ $paket ? 'Aktif' : 'Tidak Aktif' }}</span>
+            </div>
+            @if($paket)
+                <p class="text-on-surface-variant font-medium text-xs mt-3">Sedang berjalan</p>
+            @endif
+        </div>
+    </section>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-10">
+        <!-- Payments Section -->
+        <section class="lg:col-span-2 space-y-6">
+            <div class="flex justify-between items-center px-2">
+                <h4 class="text-2xl font-headline font-bold text-on-surface">Riwayat Pembayaran</h4>
+                <a href="{{ route('siswa.pembayaran.index') }}" class="text-primary font-bold text-sm hover:underline">Lihat Semua Pembayaran</a>
+            </div>
+            
+            <div class="bg-surface-container-low rounded-[1.5rem] overflow-hidden p-1">
+                <div class="bg-surface-container-lowest rounded-2xl overflow-hidden overflow-x-auto">
+                    <table class="w-full text-left border-collapse min-w-[500px]">
+                        <thead class="bg-surface-container-high/50">
+                            <tr>
+                                <th class="px-4 sm:px-8 py-4 text-[10px] font-bold tracking-[0.1em] text-on-surface-variant uppercase">Tanggal</th>
+                                <th class="px-4 sm:px-8 py-4 text-[10px] font-bold tracking-[0.1em] text-on-surface-variant uppercase">Paket</th>
+                                <th class="px-4 sm:px-8 py-4 text-[10px] font-bold tracking-[0.1em] text-on-surface-variant uppercase">Jumlah</th>
+                                <th class="px-4 sm:px-8 py-4 text-[10px] font-bold tracking-[0.1em] text-on-surface-variant uppercase">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-outline-variant/15">
+                            @forelse($riwayatPembayaran as $pembayaran)
+                            <tr class="hover:bg-surface-container-low transition-colors group">
+                                <td class="px-4 sm:px-8 py-4 sm:py-6 font-medium text-sm text-on-surface">{{ \Carbon\Carbon::parse($pembayaran->tanggal_bayar)->format('d-m-Y') }}</td>
+                                <td class="px-4 sm:px-8 py-4 sm:py-6">
+                                    <p class="font-bold text-on-surface">{{ $pembayaran->paket->nama_paket }}</p>
+                                    <p class="text-xs text-on-surface-variant">Pembelian</p>
+                                </td>
+                                <td class="px-4 sm:px-8 py-4 sm:py-6 font-bold text-on-surface">Rp {{ number_format($pembayaran->jumlah, 0, ',', '.') }}</td>
+                                <td class="px-4 sm:px-8 py-4 sm:py-6">
+                                    @if($pembayaran->status == 'lunas')
+                                        <span class="px-3 py-1 rounded-full bg-primary-fixed text-on-primary-fixed text-[10px] font-black uppercase tracking-wider">Lunas</span>
+                                    @elseif($pembayaran->status == 'pending')
+                                        <span class="px-3 py-1 rounded-full bg-surface-container-highest text-on-surface-variant text-[10px] font-black uppercase tracking-wider">Menunggu</span>
+                                    @else
+                                        <span class="px-3 py-1 rounded-full bg-error-container text-on-error-container text-[10px] font-black uppercase tracking-wider">Ditolak</span>
+                                    @endif
+                                </td>
+                            </tr>
+                            @empty
+                            <tr>
+                                <td colspan="4" class="px-4 sm:px-8 py-4 sm:py-6 text-center text-on-surface-variant">Belum ada riwayat pembayaran</td>
+                            </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Upcoming Schedule -->
+        <section class="space-y-6">
+            <div class="flex justify-between items-center px-2">
+                <h4 class="text-2xl font-headline font-bold text-on-surface">Jadwal Anda</h4>
+                <a href="{{ route('siswa.jadwal.index') }}" class="w-8 h-8 rounded-full bg-primary-fixed/30 text-primary flex items-center justify-center hover:bg-primary-fixed transition-colors">
+                    <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                </a>
+            </div>
+            
+            <div class="space-y-4">
+                @forelse($jadwalTerdekat as $jadwal)
+                <!-- Schedule Item -->
+                <div class="bg-surface-container-lowest p-6 rounded-[1.5rem] shadow-[0_8px_24px_-4px_rgba(13,28,46,0.04)] border-l-4 {{ $loop->iteration % 2 == 0 ? 'border-tertiary' : 'border-primary' }}">
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <p class="{{ $loop->iteration % 2 == 0 ? 'text-tertiary' : 'text-primary' }} font-bold text-sm">{{ $jadwal->hari }}, {{ \Carbon\Carbon::parse($jadwal->jam_mulai)->format('H:i') }} WIB</p>
+                            <h5 class="font-headline font-bold text-lg text-on-surface mt-1">{{ $jadwal->mataPelajaran->nama_mapel }}</h5>
+                        </div>
+                        <span class="px-2 py-1 bg-surface-container text-on-surface-variant rounded text-[10px] font-bold uppercase">Les</span>
+                    </div>
+                    
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-full bg-secondary-fixed flex items-center justify-center text-secondary font-bold text-xs">
+                            {{ substr($jadwal->tutor->user->name ?? 'T', 0, 1) }}
+                        </div>
+                        <div>
+                            <p class="text-xs text-on-surface-variant">Tutor</p>
+                            <p class="text-sm font-bold text-on-surface">{{ $jadwal->tutor->user->name ?? 'Belum Ditentukan' }}</p>
+                        </div>
+                        <a href="{{ route('siswa.jadwal.index') }}" class="ml-auto w-10 h-10 rounded-xl bg-surface-container-high text-on-surface-variant flex items-center justify-center hover:bg-primary-fixed transition-colors">
+                            <span class="material-symbols-outlined">event</span>
+                        </a>
+                    </div>
+                </div>
+                @empty
+                <div class="bg-surface-container-lowest p-6 rounded-[1.5rem] text-center text-on-surface-variant shadow-sm border border-outline-variant/30">
+                    Belum ada jadwal les
+                </div>
+                @endforelse
+                
+                @if(count($jadwalTerdekat) > 0)
+                <a href="{{ route('siswa.jadwal.index') }}" class="block w-full py-4 rounded-2xl bg-surface-container-high text-on-surface-variant text-center font-bold text-sm hover:bg-primary-fixed-dim transition-colors mt-2">
+                    Lihat Kalender Lengkap
+                </a>
+                @endif
+            </div>
+        </section>
     </div>
 
-    <div class="bg-green-600 text-white p-6 rounded-xl shadow">
-        <h3 class="text-lg">Bulan Ini</h3>
-        <p class="text-3xl font-bold mt-2">{{ $pertemuanBulanIni ?? 0 }}</p>
-    </div>
-
-    <div class="bg-purple-600 text-white p-6 rounded-xl shadow">
-        <h3 class="text-lg">Total Pembayaran</h3>
-        <p class="text-3xl font-bold mt-2">Rp {{ number_format($totalPembayaran ?? 0, 0, ',', '.') }}</p>
-    </div>
-
-    <div class="bg-orange-500 text-white p-6 rounded-xl shadow">
-        <h3 class="text-lg">Status Paket</h3>
-        <p class="text-3xl font-bold mt-2">{{ $paket ? 'Aktif' : 'Tidak Aktif' }}</p>
-    </div>
 
 </div>
-
-{{-- ===================== RIWAYAT PEMBAYARAN ===================== --}}
-<h2 class="text-xl font-semibold mb-4 text-gray-700">
-    Riwayat Pembayaran
-</h2>
-
-<div class="bg-white rounded-lg shadow overflow-hidden mb-10">
-    <table class="w-full">
-        <thead class="bg-gray-50">
-            <tr>
-                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Tanggal</th>
-                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Paket</th>
-                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Jumlah</th>
-                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
-            </tr>
-        </thead>
-        <tbody class="divide-y divide-gray-200">
-            @forelse($riwayatPembayaran as $pembayaran)
-            <tr>
-                <td class="px-6 py-4">{{ \Carbon\Carbon::parse($pembayaran->tanggal_bayar)->format('d-m-Y') }}</td>
-                <td class="px-6 py-4">{{ $pembayaran->paket->nama_paket }}</td>
-                <td class="px-6 py-4">Rp {{ number_format($pembayaran->jumlah, 0, ',', '.') }}</td>
-                <td class="px-6 py-4">
-                    @if($pembayaran->status == 'lunas')
-                        <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs">Lunas</span>
-                    @elseif($pembayaran->status == 'pending')
-                        <span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded text-xs">Menunggu</span>
-                    @elseif($pembayaran->status == 'gagal')
-                        <span class="bg-red-100 text-red-800 px-2 py-1 rounded text-xs">Ditolak</span>
-                    @endif
-                </td>
-            </tr>
-            @empty
-            <tr>
-                <td colspan="4" class="px-6 py-4 text-center text-gray-500">Belum ada pembayaran</td>
-            </tr>
-            @endforelse
-        </tbody>
-    </table>
-</div>
-
-{{-- ===================== RIWAYAT LES ===================== --}}
-<h2 class="text-xl font-semibold mb-4 text-gray-700">
-    Riwayat Les
-</h2>
-
-<div class="bg-white rounded-lg shadow overflow-hidden">
-    <table class="w-full">
-        <thead class="bg-gray-50">
-            <tr>
-                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Tanggal</th>
-                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Mata Pelajaran</th>
-                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Tutor</th>
-                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
-            </tr>
-        </thead>
-        <tbody class="divide-y divide-gray-200">
-            @forelse($riwayatLes as $les)
-            <tr>
-                <td class="px-6 py-4">{{ \Carbon\Carbon::parse($les->tanggal)->format('d-m-Y') }}</td>
-                <td class="px-6 py-4">{{ $les->jadwal->mataPelajaran->nama_mapel }}</td>
-                <td class="px-6 py-4">{{ $les->tutor->user->name }}</td>
-                <td class="px-6 py-4">
-                    @if($les->status == 'hadir')
-                        <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs">Hadir</span>
-                    @else
-                        <span class="bg-red-100 text-red-800 px-2 py-1 rounded text-xs">{{ ucfirst($les->status) }}</span>
-                    @endif
-                </td>
-            </tr>
-            @empty
-            <tr>
-                <td colspan="4" class="px-6 py-4 text-center text-gray-500">Belum ada riwayat les</td>
-            </tr>
-            @endforelse
-        </tbody>
-    </table>
-</div>
-
 @endsection

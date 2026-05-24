@@ -22,6 +22,7 @@ use App\Http\Controllers\Siswa\DashboardController as SiswaDashboardController;
 use App\Http\Controllers\Siswa\PaketController as SiswaPaketController;
 use App\Http\Controllers\Siswa\JadwalController as SiswaJadwalController;
 use App\Http\Controllers\Siswa\RiwayatController as SiswaRiwayatController;
+use App\Http\Controllers\Siswa\PembayaranController as SiswaPembayaranController;
 
 
 /*
@@ -143,16 +144,21 @@ Route::middleware(['auth', 'role:siswa'])->prefix('siswa')->name('siswa.')->grou
 
     // Paket
     Route::resource('paket', SiswaPaketController::class)->only(['index']);
+    Route::get('paket/{paket}/pilih-jadwal', [SiswaPaketController::class, 'pilihJadwal'])->name('paket.pilih-jadwal');
+    Route::get('paket/tutor-schedules/{tutor_id}', [SiswaPaketController::class, 'getTutorSchedules'])->name('paket.tutor-schedules');
     Route::post('paket/pesan', [SiswaPaketController::class, 'pesan'])
         ->name('paket.pesan');
 
     // Jadwal
     Route::resource('jadwal', SiswaJadwalController::class)->only(['index']);
 
-    // Riwayat
+    // Riwayat Absensi
     Route::resource('riwayat', SiswaRiwayatController::class)->only(['index']);
     Route::post('riwayat/{absensi}/konfirmasi', [SiswaRiwayatController::class, 'konfirmasi'])
         ->name('riwayat.konfirmasi');
+        
+    // Riwayat Pembayaran
+    Route::resource('pembayaran', SiswaPembayaranController::class)->only(['index']);
 });
 
 

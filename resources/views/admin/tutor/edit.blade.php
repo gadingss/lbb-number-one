@@ -41,7 +41,7 @@
     </div>
     <div class="relative z-10 flex-1">
         <h4 class="text-xl font-headline font-bold text-on-surface">{{ $tutor->user->name ?? '-' }}</h4>
-        <p class="text-on-surface-variant font-medium">{{ $tutor->keahlian ?? '-' }} • {{ $tutor->pendidikan_terakhir ?? '-' }}</p>
+        <p class="text-on-surface-variant font-medium">{{ $tutor->mataPelajaran->nama_mapel ?? '-' }} • {{ $tutor->pendidikan_terakhir ?? '-' }}</p>
         <p class="text-xs text-outline mt-1">{{ $tutor->user->email ?? '-' }}</p>
     </div>
     <div class="relative z-10 hidden md:flex items-center gap-3">
@@ -139,12 +139,18 @@
                 Profil Profesional
             </h5>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {{-- Keahlian --}}
+                {{-- Mata Pelajaran --}}
                 <div>
-                    <label class="block mb-2 text-xs font-bold text-on-surface-variant uppercase tracking-wider">Keahlian</label>
-                    <input type="text" name="keahlian" value="{{ old('keahlian', $tutor->keahlian) }}"
-                        class="w-full bg-surface-container-highest border-none rounded-xl p-3 text-sm font-medium text-on-surface focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest transition-all"
-                        placeholder="Contoh: Matematika, Fisika, Bahasa Inggris" required>
+                    <label class="block mb-2 text-xs font-bold text-on-surface-variant uppercase tracking-wider">Mata Pelajaran Utama</label>
+                    <select name="mata_pelajaran_id"
+                        class="w-full bg-surface-container-highest border-none rounded-xl p-3 text-sm font-medium text-on-surface focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest transition-all" required>
+                        <option value="">Pilih Mata Pelajaran...</option>
+                        @foreach($mataPelajarans as $mapel)
+                            <option value="{{ $mapel->id }}" {{ old('mata_pelajaran_id', $tutor->mata_pelajaran_id) == $mapel->id ? 'selected' : '' }}>
+                                {{ $mapel->nama_mapel }}
+                            </option>
+                        @endforeach
+                    </select>
                 </div>
 
                 {{-- Pendidikan Terakhir --}}

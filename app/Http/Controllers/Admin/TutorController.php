@@ -60,7 +60,8 @@ class TutorController extends Controller
     // ===============================
     public function create()
     {
-        return view('admin.tutor.create');
+        $mataPelajarans = \App\Models\MataPelajaran::all();
+        return view('admin.tutor.create', compact('mataPelajarans'));
     }
 
     // ===============================
@@ -74,7 +75,7 @@ class TutorController extends Controller
             'password' => 'required|string|min:8',
             'no_hp' => 'required|numeric',
             'alamat' => 'required|string',
-            'keahlian' => 'required|string',
+            'mata_pelajaran_id' => 'required|exists:mata_pelajarans,id',
             'pendidikan_terakhir' => 'required|string',
             'kuota_siswa' => 'required|integer|min:1',
         ], [
@@ -93,7 +94,7 @@ class TutorController extends Controller
                 'user_id' => $user->id,
                 'no_hp' => $request->no_hp,
                 'alamat' => $request->alamat,
-                'keahlian' => $request->keahlian,
+                'mata_pelajaran_id' => $request->mata_pelajaran_id,
                 'pendidikan_terakhir' => $request->pendidikan_terakhir,
                 'kuota_siswa' => $request->kuota_siswa,
             ]);
@@ -108,7 +109,8 @@ class TutorController extends Controller
     // ===============================
     public function edit(Tutor $tutor)
     {
-        return view('admin.tutor.edit', compact('tutor'));
+        $mataPelajarans = \App\Models\MataPelajaran::all();
+        return view('admin.tutor.edit', compact('tutor', 'mataPelajarans'));
     }
 
     // ===============================
@@ -122,7 +124,7 @@ class TutorController extends Controller
             'password' => 'nullable|string|min:8',
             'no_hp' => 'required|numeric',
             'alamat' => 'required|string',
-            'keahlian' => 'required|string',
+            'mata_pelajaran_id' => 'required|exists:mata_pelajarans,id',
             'pendidikan_terakhir' => 'required|string',
             'kuota_siswa' => 'required|integer|min:1',
         ], [
@@ -144,7 +146,7 @@ class TutorController extends Controller
             $tutor->update([
                 'no_hp' => $request->no_hp,
                 'alamat' => $request->alamat,
-                'keahlian' => $request->keahlian,
+                'mata_pelajaran_id' => $request->mata_pelajaran_id,
                 'pendidikan_terakhir' => $request->pendidikan_terakhir,
                 'kuota_siswa' => $request->kuota_siswa,
             ]);
@@ -189,11 +191,21 @@ class TutorController extends Controller
             $noHp = '62' . substr($noHp, 1);
         }
 
-        $waMessage = urlencode("Halo {$tutor->user->name}, akun Tutor Anda telah diverifikasi oleh LBB Number One. Berikut adalah kode login Anda: {$request->kode}\nSilakan login menggunakan kode ini.");
-        $waLink = "https://wa.me/{$noHp}?text={$waMessage}";
+        $waMessage = "🎉 *VERIFIKASI BERHASIL*\n\nHalo {$tutor->user->name},\n\nAkun Tutor Anda telah diverifikasi oleh LBB Number One. Berikut adalah *kode login* Anda:\n\n*{$request->kode}*\n\nSilakan gunakan kode tersebut untuk masuk ke dalam sistem.\nTerima kasih! 🎓\n\n- *LBB Number One*";
+
+        // Kirim otomatis via Fonnte
+        try {
+            $fonnte = app(\App\Services\FonnteService::class);
+            $fonnte->sendMessage($noHp, $waMessage);
+            \Illuminate\Support\Facades\Log::info("Fonnte Verification Sent to Tutor: {$noHp}");
+        } catch (\Exception $e) {
+            \Illuminate\Support\Facades\Log::error("Fonnte Verification Error: " . $e->getMessage());
+        }
+
+        $waLink = "https://wa.me/{$noHp}?text=" . urlencode($waMessage);
 
         return redirect()->route('admin.tutor.index')
-            ->with('success', 'Tutor berhasil diverifikasi.')
+            ->with('success', 'Tutor berhasil diverifikasi dan kode login otomatis dikirim via WhatsApp.')
             ->with('wa_link', $waLink);
     }
 }

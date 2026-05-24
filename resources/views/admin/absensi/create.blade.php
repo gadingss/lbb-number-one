@@ -21,7 +21,7 @@
                     <option value="">Pilih Jadwal</option>
                     @foreach($jadwals as $jadwal)
                         <option value="{{ $jadwal->id }}">
-                            {{ $jadwal->tutor->user->name }} - {{ $jadwal->mataPelajaran->nama_mapel }} ({{ $jadwal->hari }})
+                            [{{ $jadwal->mataPelajaran->nama_mapel }}] Siswa: {{ $jadwal->siswa->user->name ?? 'N/A' }} | Tutor: {{ $jadwal->tutor->user->name ?? 'N/A' }} ({{ $jadwal->hari }})
                         </option>
                     @endforeach
                 </select>
@@ -59,7 +59,6 @@
                 <label class="block text-sm font-medium text-gray-700 mb-1">Status Kehadiran</label>
                 <select name="status" class="w-full border rounded px-3 py-2" required>
                     <option value="hadir">Hadir</option>
-                    <option value="tidak_hadir">Tidak Hadir</option>
                     <option value="izin">Izin</option>
                     <option value="alpha">Alpha</option>
                 </select>
@@ -70,10 +69,7 @@
                 <input type="time" name="jam_absen" value="{{ date('H:i') }}" class="w-full border rounded px-3 py-2">
             </div>
 
-            <div class="md:col-span-2">
-                <label class="block text-sm font-medium text-gray-700 mb-1">Catatan</label>
-                <textarea name="catatan" rows="2" class="w-full border rounded px-3 py-2" placeholder="Opsional..."></textarea>
-            </div>
+
 
             <div class="md:col-span-2">
                 <label class="block text-sm font-medium text-gray-700 mb-1">Hasil Pertemuan</label>

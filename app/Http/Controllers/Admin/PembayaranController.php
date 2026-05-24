@@ -13,13 +13,54 @@ class PembayaranController extends Controller
     // ===============================
     // INDEX - Daftar Pembayaran
     // ===============================
-    public function index()
+    public function index(Request $request)
     {
-        $pembayarans = Pembayaran::with(['siswa.user', 'paket'])
-            ->latest()
-            ->get();
+        $query = Pembayaran::with(['siswa.user', 'paket']);
 
-        return view('admin.pembayaran.index', compact('pembayarans'));
+        // Search Filter
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->whereHas('siswa.user', function($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%");
+            });
+        }
+
+        // Status Filter
+        if ($request->filled('status') && $request->status !== 'Semua Status') {
+            $query->where('status', strtolower($request->status));
+        }
+
+        // Date Range Filter
+        if ($request->filled('tanggal_awal')) {
+            $query->whereDate('tanggal_bayar', '>=', $request->tanggal_awal);
+        }
+        if ($request->filled('tanggal_akhir')) {
+            $query->whereDate('tanggal_bayar', '<=', $request->tanggal_akhir);
+        }
+
+        $pembayarans = $query->latest()->paginate(10)->withQueryString();
+
+        // Calculate Metrics
+        $totalPendapatanBulanIni = Pembayaran::where('status', 'lunas')
+            ->whereMonth('tanggal_bayar', \Carbon\Carbon::now()->month)
+            ->whereYear('tanggal_bayar', \Carbon\Carbon::now()->year)
+            ->sum('jumlah');
+
+        $menungguKonfirmasi = Pembayaran::where('status', 'pending')->count();
+
+        // Metode Terpopuler
+        $metodeTerpopulerObj = Pembayaran::select('metode_pembayaran', \DB::raw('count(*) as total'))
+            ->groupBy('metode_pembayaran')
+            ->orderByDesc('total')
+            ->first();
+        $metodeTerpopuler = $metodeTerpopulerObj ? $metodeTerpopulerObj->metode_pembayaran : 'Belum Ada';
+
+        return view('admin.pembayaran.index', compact(
+            'pembayarans', 
+            'totalPendapatanBulanIni', 
+            'menungguKonfirmasi', 
+            'metodeTerpopuler'
+        ));
     }
 
     // ===============================
@@ -81,6 +122,17 @@ class PembayaranController extends Controller
         ]);
 
         $pembayaran->update($request->all());
+
+        // Jika status diubah menjadi lunas secara manual oleh Admin, pastikan jadwalnya ikut aktif
+        if ($request->status === 'lunas') {
+            \App\Models\Jadwal::withoutGlobalScope('exclude_pending')
+                ->where('pembayaran_id', $pembayaran->id)
+                ->update(['status' => 'aktif']);
+        } elseif ($request->status === 'gagal') {
+            \App\Models\Jadwal::withoutGlobalScope('exclude_pending')
+                ->where('pembayaran_id', $pembayaran->id)
+                ->delete();
+        }
 
         return redirect()->route('admin.pembayaran.index')
             ->with('success', 'Pembayaran berhasil diperbarui');

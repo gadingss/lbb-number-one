@@ -30,9 +30,22 @@ class MidtransController extends Controller
         }
 
         if ($transactionStatus == 'capture' || $transactionStatus == 'settlement') {
-            $pembayaran->update(['status' => 'lunas']);
+            $pembayaran->update([
+                'status' => 'lunas',
+                'tanggal_bayar' => now()->toDateString()
+            ]);
+            
+            // Aktifkan jadwal yang berstatus pending menjadi aktif
+            \App\Models\Jadwal::withoutGlobalScope('exclude_pending')
+                ->where('pembayaran_id', $pembayaran->id)
+                ->update(['status' => 'aktif']);
+                
         } elseif ($transactionStatus == 'cancel' || $transactionStatus == 'deny' || $transactionStatus == 'expire') {
             $pembayaran->update(['status' => 'gagal']);
+            
+            // Hapus jadwal yang di-booking jika pembayaran gagal atau expire
+            \App\Models\Jadwal::where('pembayaran_id', $pembayaran->id)->delete();
+            
         } elseif ($transactionStatus == 'pending') {
             $pembayaran->update(['status' => 'pending']);
         }

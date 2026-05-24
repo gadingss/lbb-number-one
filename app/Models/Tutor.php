@@ -14,7 +14,7 @@ class Tutor extends Model
         'user_id',
         'no_hp',
         'alamat',
-        'keahlian',
+        'mata_pelajaran_id',
         'pendidikan_terakhir',
         'kuota_siswa',
         'latitude',
@@ -25,6 +25,12 @@ class Tutor extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    // # Relasi ke tabel mata_pelajarans
+    public function mataPelajaran()
+    {
+        return $this->belongsTo(MataPelajaran::class);
     }
 
     // # Relasi ke tabel jadwals

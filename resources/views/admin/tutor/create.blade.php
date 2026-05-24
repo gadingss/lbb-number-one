@@ -115,12 +115,18 @@
                 Profil Profesional
             </h5>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {{-- Keahlian --}}
+                {{-- Mata Pelajaran --}}
                 <div>
-                    <label class="block mb-2 text-xs font-bold text-on-surface-variant uppercase tracking-wider">Keahlian</label>
-                    <input type="text" name="keahlian" value="{{ old('keahlian') }}"
-                        class="w-full bg-surface-container-highest border-none rounded-xl p-3 text-sm font-medium text-on-surface focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest transition-all"
-                        placeholder="Contoh: Matematika, Fisika, Bahasa Inggris" required>
+                    <label class="block mb-2 text-xs font-bold text-on-surface-variant uppercase tracking-wider">Mata Pelajaran Utama</label>
+                    <select name="mata_pelajaran_id"
+                        class="w-full bg-surface-container-highest border-none rounded-xl p-3 text-sm font-medium text-on-surface focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest transition-all" required>
+                        <option value="">Pilih Mata Pelajaran...</option>
+                        @foreach($mataPelajarans as $mapel)
+                            <option value="{{ $mapel->id }}" {{ old('mata_pelajaran_id') == $mapel->id ? 'selected' : '' }}>
+                                {{ $mapel->nama_mapel }}
+                            </option>
+                        @endforeach
+                    </select>
                 </div>
 
                 {{-- Pendidikan Terakhir --}}

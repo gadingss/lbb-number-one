@@ -76,6 +76,23 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
 
+        // Kirim Notifikasi WhatsApp ke User yang mendaftar
+        try {
+            $fonnte = app(\App\Services\FonnteService::class);
+            $pesan = "🎉 *PENDAFTARAN BERHASIL*\n\n"
+                   . "Halo {$request->name},\n"
+                   . "Pendaftaran Anda sebagai *" . strtoupper($request->role) . "* di LBB Number One telah berhasil diterima.\n\n"
+                   . "Mohon tunggu sejenak. Tim Admin kami sedang melakukan verifikasi data Anda.\n"
+                   . "Kode login akan dikirimkan melalui WhatsApp setelah akun Anda diverifikasi.\n\n"
+                   . "Terima kasih telah bergabung!\n"
+                   . "- *LBB Number One*";
+                   
+            $fonnte->sendMessage($request->no_hp, $pesan);
+            \Illuminate\Support\Facades\Log::info("Fonnte Registration Notification Sent to {$request->no_hp}");
+        } catch (\Exception $e) {
+            \Illuminate\Support\Facades\Log::error("Fonnte Registration Error: " . $e->getMessage());
+        }
+
         return redirect()->route('login')->with('status', 'Pendaftaran berhasil. Silakan tunggu verifikasi dan kode login dari Admin via WhatsApp.');
     }
 }

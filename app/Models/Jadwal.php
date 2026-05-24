@@ -9,12 +9,21 @@ class Jadwal extends Model
     protected $fillable = [
         'tutor_id',
         'siswa_id',
+        'pembayaran_id',
         'mata_pelajaran_id',
         'hari',
         'jam_mulai',
         'jam_selesai',
         'status',
     ];
+
+    protected static function booted()
+    {
+        // Secara default, jadwal yang masih berstatus 'pending' (belum dibayar lunas) tidak akan ditampilkan
+        static::addGlobalScope('exclude_pending', function (\Illuminate\Database\Eloquent\Builder $builder) {
+            $builder->where('jadwals.status', '!=', 'pending');
+        });
+    }
 
     // Relasi ke Tutor
     public function tutor()
@@ -32,6 +41,12 @@ class Jadwal extends Model
     public function siswa()
     {
         return $this->belongsTo(Siswa::class);
+    }
+    
+    // Relasi ke Pembayaran
+    public function pembayaran()
+    {
+        return $this->belongsTo(Pembayaran::class);
     }
 
     // Relasi ke Pengajuan Izin

@@ -102,7 +102,7 @@
                 <tr class="bg-surface-container-high/50">
                     <th class="px-8 py-4 text-[10px] font-bold text-slate-500 uppercase tracking-widest">No</th>
                     <th class="px-6 py-4 text-[10px] font-bold text-slate-500 uppercase tracking-widest">Nama Profil</th>
-                    <th class="px-6 py-4 text-[10px] font-bold text-slate-500 uppercase tracking-widest">Keahlian (Subject)</th>
+                    <th class="px-6 py-4 text-[10px] font-bold text-slate-500 uppercase tracking-widest">Mata Pelajaran (Subject)</th>
                     <th class="px-6 py-4 text-[10px] font-bold text-slate-500 uppercase tracking-widest text-center">Status</th>
                     <th class="px-8 py-4 text-[10px] font-bold text-slate-500 uppercase tracking-widest text-right">Aksi</th>
                 </tr>
@@ -126,7 +126,7 @@
                     </td>
                     <td class="px-6 py-5">
                         <span class="px-3 py-1 bg-primary-fixed text-on-primary-fixed text-[11px] font-bold rounded-full block w-max mb-1">
-                            {{ $tutor->keahlian }}
+                            {{ $tutor->mataPelajaran->nama_mapel ?? '-' }}
                         </span>
                         @php
                             $activeCount = $tutor->active_students_count;

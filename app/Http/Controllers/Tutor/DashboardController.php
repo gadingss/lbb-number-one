@@ -36,10 +36,21 @@ class DashboardController extends Controller
         ];
         $hari = $hariIndonesia[$hariIni] ?? $hariIni;
 
-        $jadwalHariIni = Jadwal::with(['mataPelajaran'])
+        $jadwalHariIni = Jadwal::with(['mataPelajaran', 'siswa.user'])
             ->where('tutor_id', $tutor->id)
             ->where('hari', $hari)
+            ->orderBy('jam_mulai')
             ->get();
+
+        // Cari sesi berikutnya
+        $sekarang = date('H:i:s');
+        $sesiBerikutnya = $jadwalHariIni->filter(function($jadwal) use ($sekarang) {
+            return $jadwal->jam_mulai >= $sekarang;
+        })->first();
+
+        if (!$sesiBerikutnya) {
+            $sesiBerikutnya = $jadwalHariIni->first();
+        }
 
         // Semua jadwal
         $semuaJadwal = Jadwal::with(['mataPelajaran'])
@@ -63,6 +74,7 @@ class DashboardController extends Controller
         return view('tutor.dashboard', compact(
             'tutor',
             'jadwalHariIni',
+            'sesiBerikutnya',
             'semuaJadwal',
             'riwayatAbsensi',
             'totalPertemuan',

@@ -10,6 +10,7 @@ class Paket extends Model
         'nama_paket',
         'mata_pelajaran_id',
         'jumlah_pertemuan',
+        'durasi_pertemuan',
         'harga',
         'deskripsi',
     ];

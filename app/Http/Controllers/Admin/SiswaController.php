@@ -149,11 +149,21 @@ class SiswaController extends Controller
             $noHp = '62' . substr($noHp, 1);
         }
 
-        $waMessage = urlencode("Halo {$siswa->user->name}, akun Anda telah diverifikasi oleh LBB Number One. Berikut adalah kode login Anda: {$request->kode}\nSilakan login menggunakan kode ini.");
-        $waLink = "https://wa.me/{$noHp}?text={$waMessage}";
+        $waMessage = "🎉 *VERIFIKASI BERHASIL*\n\nHalo {$siswa->user->name},\n\nAkun Anda telah diverifikasi oleh LBB Number One. Berikut adalah *kode login* Anda:\n\n*{$request->kode}*\n\nSilakan gunakan kode tersebut untuk masuk ke dalam sistem.\nTerima kasih! 🎓\n\n- *LBB Number One*";
+
+        // Kirim otomatis via Fonnte
+        try {
+            $fonnte = app(\App\Services\FonnteService::class);
+            $fonnte->sendMessage($noHp, $waMessage);
+            \Illuminate\Support\Facades\Log::info("Fonnte Verification Sent to Siswa: {$noHp}");
+        } catch (\Exception $e) {
+            \Illuminate\Support\Facades\Log::error("Fonnte Verification Error: " . $e->getMessage());
+        }
+
+        $waLink = "https://wa.me/{$noHp}?text=" . urlencode($waMessage);
 
         return redirect()->route('admin.siswa.index')
-            ->with('success', 'Siswa berhasil diverifikasi.')
+            ->with('success', 'Siswa berhasil diverifikasi dan kode login otomatis dikirim via WhatsApp.')
             ->with('wa_link', $waLink);
     }
 }

@@ -61,6 +61,7 @@ class AbsensiController extends Controller
         $request->validate([
             'jadwal_id' => 'required',
             'tanggal' => 'required|date',
+            'jam_absen' => 'required|date_format:H:i',
             'status' => 'required|in:hadir,tidak_hadir,izin,alpha',
             'catatan' => 'nullable|string',
             'hasil_pertemuan' => 'nullable|string',
@@ -86,7 +87,7 @@ class AbsensiController extends Controller
             'siswa_id' => $jadwal->siswa_id,
             'tutor_id' => $tutor->id,
             'tanggal' => $request->tanggal,
-            'jam_absen' => now()->format('H:i:s'),
+            'jam_absen' => $request->jam_absen,
             'status' => $request->status,
             'catatan' => $request->catatan,
             'hasil_pertemuan' => $request->hasil_pertemuan,

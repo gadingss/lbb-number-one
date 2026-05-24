@@ -11,22 +11,33 @@
         .material-symbols-outlined {
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
         }
+        .filled-icon {
+            font-variation-settings: 'FILL' 1;
+        }
         body { font-family: 'Inter', sans-serif; }
         h1, h2, h3, .font-headline { font-family: 'Manrope', sans-serif; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
     </style>
 </head>
 <body class="bg-background text-on-background antialiased">
+
+    <!-- Mobile Overlay Backdrop -->
+    <div id="sidebar-overlay" class="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 lg:hidden hidden" onclick="toggleSidebar()"></div>
+
     <!-- SideNavBar -->
-    <aside class="fixed left-0 top-0 h-full w-64 bg-blue-50 dark:bg-slate-950 flex flex-col py-8 space-y-6 z-50">
-        <div class="px-8 flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-white shadow-lg">
+    <aside id="sidebar" class="fixed left-0 top-0 h-full w-64 bg-blue-50 dark:bg-slate-950 flex flex-col py-8 space-y-6 z-50 transition-transform duration-300 ease-in-out -translate-x-full lg:translate-x-0 overflow-y-auto">
+        <div class="px-6 sm:px-8 flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-white shadow-lg flex-shrink-0">
                 <span class="material-symbols-outlined" data-icon="school">school</span>
             </div>
-            <div>
-                <h1 class="text-lg font-black text-blue-900 dark:text-blue-50 leading-tight">LBB Management</h1>
+            <div class="min-w-0">
+                <h1 class="text-lg font-black text-blue-900 dark:text-blue-50 leading-tight">LBB Number One Management</h1>
                 <p class="text-[10px] uppercase tracking-widest text-slate-500 font-bold">Bimbingan Belajar Privat</p>
             </div>
+            <!-- Close button (mobile only) -->
+            <button onclick="toggleSidebar()" class="lg:hidden ml-auto -mr-2 w-8 h-8 rounded-full hover:bg-blue-100 flex items-center justify-center transition-colors flex-shrink-0">
+                <span class="material-symbols-outlined text-slate-500 text-lg">close</span>
+            </button>
         </div>
         
         <nav class="flex-1 px-4 space-y-1">
@@ -50,6 +61,12 @@
                 <span class="font-manrope text-sm font-medium">Siswa</span>
             </a>
             
+            <a href="{{ route('admin.mata-pelajaran.index') }}" 
+               class="flex items-center gap-3 px-4 py-3 font-bold rounded-xl transition-all duration-300 ease-in-out {{ str_contains($route, 'admin.mata-pelajaran') ? 'text-blue-700 dark:text-blue-300 border-r-4 border-blue-600 dark:border-blue-400 bg-blue-100/50 dark:bg-blue-900/20' : 'text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-300 hover:bg-slate-200/50 dark:hover:bg-slate-800/50' }}">
+                <span class="material-symbols-outlined" data-icon="book">book</span>
+                <span class="font-manrope text-sm font-medium">Mata Pelajaran</span>
+            </a>
+
             <a href="{{ route('admin.paket.index') }}" 
                class="flex items-center gap-3 px-4 py-3 font-bold rounded-xl transition-all duration-300 ease-in-out {{ str_contains($route, 'admin.paket') ? 'text-blue-700 dark:text-blue-300 border-r-4 border-blue-600 dark:border-blue-400 bg-blue-100/50 dark:bg-blue-900/20' : 'text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-300 hover:bg-slate-200/50 dark:hover:bg-slate-800/50' }}">
                 <span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
@@ -98,24 +115,28 @@
     </aside>
 
     <!-- TopAppBar -->
-    <header class="fixed top-0 w-full ml-64 max-w-[calc(100%-16rem)] h-16 bg-slate-50/80 dark:bg-slate-900/80 backdrop-blur-xl z-40 flex justify-between items-center px-8 shadow-sm tonal-shift surface-container-low">
-        <div class="flex items-center gap-4 flex-1">
-            <h2 class="text-xl font-bold text-on-background">@yield('title', 'Dasbor')</h2>
+    <header class="fixed top-0 left-0 lg:left-64 right-0 h-16 bg-slate-50/80 dark:bg-slate-900/80 backdrop-blur-xl z-30 flex justify-between items-center px-4 sm:px-6 lg:px-8 shadow-sm">
+        <div class="flex items-center gap-3 flex-1 min-w-0">
+            <!-- Hamburger button (mobile only) -->
+            <button onclick="toggleSidebar()" class="lg:hidden w-10 h-10 rounded-full hover:bg-blue-50 flex items-center justify-center transition-colors flex-shrink-0">
+                <span class="material-symbols-outlined text-slate-600">menu</span>
+            </button>
+            <h2 class="text-lg sm:text-xl font-bold text-on-background truncate">@yield('title', 'Dasbor')</h2>
         </div>
-        <div class="flex items-center gap-6">
+        <div class="flex items-center gap-3 sm:gap-6">
             <div class="flex items-center gap-4">
                 <button class="relative p-2 text-slate-500 hover:bg-blue-50/50 rounded-full transition-colors active:scale-95 duration-200">
                     <span class="material-symbols-outlined" data-icon="notifications">notifications</span>
                     <span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
                 </button>
             </div>
-            <div class="h-8 w-px bg-slate-200"></div>
+            <div class="h-8 w-px bg-slate-200 hidden sm:block"></div>
             <div class="flex items-center gap-3">
-                <div class="text-right">
+                <div class="text-right hidden sm:block">
                     <p class="text-sm font-bold text-blue-900 dark:text-blue-100">{{ auth()->user()->name }}</p>
                     <p class="text-xs text-slate-500">Administrator</p>
                 </div>
-                <div class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center font-bold text-lg">
+                <div class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center font-bold text-lg flex-shrink-0">
                     {{ substr(auth()->user()->name, 0, 1) }}
                 </div>
             </div>
@@ -123,9 +144,37 @@
     </header>
 
     <!-- Main Content Canvas -->
-    <main class="ml-64 pt-24 pb-12 px-10 min-h-screen">
+    <main class="lg:ml-64 pt-20 sm:pt-24 pb-12 px-4 sm:px-6 lg:px-10 min-h-screen">
         @yield('content')
     </main>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebar-overlay');
+            const isOpen = !sidebar.classList.contains('-translate-x-full');
+            
+            if (isOpen) {
+                sidebar.classList.add('-translate-x-full');
+                overlay.classList.add('hidden');
+                document.body.style.overflow = '';
+            } else {
+                sidebar.classList.remove('-translate-x-full');
+                overlay.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+        
+        window.addEventListener('resize', function() {
+            if (window.innerWidth >= 1024) {
+                const sidebar = document.getElementById('sidebar');
+                const overlay = document.getElementById('sidebar-overlay');
+                sidebar.classList.remove('-translate-x-full');
+                overlay.classList.add('hidden');
+                document.body.style.overflow = '';
+            }
+        });
+    </script>
 
     @yield('scripts')
 </body>

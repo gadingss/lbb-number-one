@@ -36,20 +36,45 @@
             @csrf
             @method('PUT')
 
-            <div class="space-y-2">
-                <label class="text-xs font-bold text-slate-500 uppercase tracking-wider ml-1">Nama Paket</label>
-                <div class="relative">
-                    <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">auto_stories</span>
-                    <input type="text" name="nama_paket" value="{{ old('nama_paket', $paket->nama_paket) }}" class="w-full bg-slate-50 border-none rounded-xl pl-12 pr-4 py-3 focus:bg-white focus:ring-2 focus:ring-blue-500/20 transition-all font-medium text-slate-700" required>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="space-y-2">
+                    <label class="text-xs font-bold text-slate-500 uppercase tracking-wider ml-1">Nama Paket</label>
+                    <div class="relative">
+                        <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">auto_stories</span>
+                        <input type="text" name="nama_paket" value="{{ old('nama_paket', $paket->nama_paket) }}" class="w-full bg-slate-50 border-none rounded-xl pl-12 pr-4 py-3 focus:bg-white focus:ring-2 focus:ring-blue-500/20 transition-all font-medium text-slate-700" required>
+                    </div>
+                </div>
+
+                <div class="space-y-2">
+                    <label class="text-xs font-bold text-slate-500 uppercase tracking-wider ml-1">Mata Pelajaran</label>
+                    <div class="relative">
+                        <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 z-10">menu_book</span>
+                        <select name="mata_pelajaran_id" class="w-full bg-slate-50 border-none rounded-xl pl-12 pr-4 py-3 focus:bg-white focus:ring-2 focus:ring-blue-500/20 transition-all font-medium text-slate-700 appearance-none relative z-0" required>
+                            <option value="">-- Pilih Mata Pelajaran --</option>
+                            @foreach($mataPelajarans as $mapel)
+                                <option value="{{ $mapel->id }}" {{ old('mata_pelajaran_id', $paket->mata_pelajaran_id) == $mapel->id ? 'selected' : '' }}>
+                                    {{ $mapel->nama_mapel }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div class="space-y-2">
-                    <label class="text-xs font-bold text-slate-500 uppercase tracking-wider ml-1">Jumlah Pertemuan (Sesi)</label>
+                    <label class="text-xs font-bold text-slate-500 uppercase tracking-wider ml-1">Jumlah Pertemuan</label>
                     <div class="relative">
                         <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">schedule</span>
                         <input type="number" name="jumlah_pertemuan" value="{{ old('jumlah_pertemuan', $paket->jumlah_pertemuan) }}" class="w-full bg-slate-50 border-none rounded-xl pl-12 pr-4 py-3 focus:bg-white focus:ring-2 focus:ring-blue-500/20 transition-all font-medium text-slate-700" required>
+                    </div>
+                </div>
+
+                <div class="space-y-2">
+                    <label class="text-xs font-bold text-slate-500 uppercase tracking-wider ml-1">Durasi (Menit)</label>
+                    <div class="relative">
+                        <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">timer</span>
+                        <input type="number" name="durasi_pertemuan" value="{{ old('durasi_pertemuan', $paket->durasi_pertemuan ?? 90) }}" class="w-full bg-slate-50 border-none rounded-xl pl-12 pr-4 py-3 focus:bg-white focus:ring-2 focus:ring-blue-500/20 transition-all font-medium text-slate-700" required>
                     </div>
                 </div>
 

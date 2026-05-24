@@ -25,7 +25,10 @@
                             $kuota = $tutor->kuota_siswa;
                             $isFull = $activeCount >= $kuota;
                         @endphp
-                        <option value="{{ $tutor->id }}" {{ $isFull ? 'disabled' : '' }}>
+                        <option value="{{ $tutor->id }}" 
+                            {{ $isFull ? 'disabled' : '' }}
+                            class="{{ $isFull ? 'text-gray-400 bg-gray-100' : 'text-gray-900' }}"
+                            style="{{ $isFull ? 'color: #9ca3af; background-color: #f3f4f6;' : '' }}">
                             {{ $tutor->user->name }} 
                             @if($isFull)
                                 (Kuota Penuh: {{ $activeCount }}/{{ $kuota }})
@@ -35,6 +38,9 @@
                         </option>
                     @endforeach
                 </select>
+                @error('tutor_id')
+                    <p class="text-red-500 text-xs italic mt-1">{{ $message }}</p>
+                @enderror
             </div>
 
             <div>

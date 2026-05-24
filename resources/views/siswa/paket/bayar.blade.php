@@ -63,9 +63,6 @@
         });
     };
     
-    // Auto-trigger payment popup on page load
-    document.addEventListener('DOMContentLoaded', function() {
-        document.getElementById('pay-button').click();
-    });
+    // Pop-up Midtrans sekarang hanya akan muncul jika tombol 'Bayar Sekarang' diklik.
 </script>
 @endsection

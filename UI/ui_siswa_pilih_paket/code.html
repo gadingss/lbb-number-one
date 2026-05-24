@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+
+<html lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Pilih Paket Belajar - LBB Number One</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "outline": "#737686",
+                        "surface-container-highest": "#d5e3fc",
+                        "on-secondary-fixed-variant": "#31447b",
+                        "on-background": "#0d1c2e",
+                        "error": "#ba1a1a",
+                        "on-secondary-container": "#394c84",
+                        "surface-container-high": "#dce9ff",
+                        "surface-container-low": "#eff4ff",
+                        "on-tertiary": "#ffffff",
+                        "tertiary": "#943700",
+                        "outline-variant": "#c3c6d7",
+                        "inverse-on-surface": "#eaf1ff",
+                        "surface-dim": "#ccdbf3",
+                        "primary-container": "#2563eb",
+                        "on-tertiary-fixed-variant": "#7d2d00",
+                        "background": "#f8f9ff",
+                        "secondary-container": "#acbfff",
+                        "surface-bright": "#f8f9ff",
+                        "on-tertiary-fixed": "#360f00",
+                        "on-secondary": "#ffffff",
+                        "on-primary-container": "#eeefff",
+                        "on-surface-variant": "#434655",
+                        "on-primary": "#ffffff",
+                        "inverse-primary": "#b4c5ff",
+                        "on-surface": "#0d1c2e",
+                        "secondary": "#495c95",
+                        "inverse-surface": "#233144",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "tertiary-fixed-dim": "#ffb596",
+                        "on-error": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "error-container": "#ffdad6",
+                        "surface": "#f8f9ff",
+                        "tertiary-fixed": "#ffdbcd",
+                        "secondary-fixed-dim": "#b4c5ff",
+                        "on-secondary-fixed": "#00174b",
+                        "surface-variant": "#d5e3fc",
+                        "on-tertiary-container": "#ffede6",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "surface-container": "#e6eeff",
+                        "secondary-fixed": "#dbe1ff",
+                        "primary": "#004ac6",
+                        "on-primary-fixed": "#00174b",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-container": "#bc4800",
+                        "primary-fixed": "#dbe1ff",
+                        "surface-tint": "#0053db"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Manrope"],
+                        "display": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .font-headline { font-family: 'Manrope', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .active-glow {
+            box-shadow: 0 0 20px -5px rgba(0, 74, 198, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface">
+<!-- SideNavBar Shell -->
+<aside class="h-screen w-64 fixed left-0 top-0 bg-surface-container-low dark:bg-inverse-surface flex flex-col p-6 z-50">
+<div class="mb-10">
+<div class="flex items-center gap-3 mb-1">
+<div class="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-white">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">school</span>
+</div>
+<div>
+<h1 class="font-headline text-lg font-bold bg-gradient-to-br from-primary to-primary-container bg-clip-text text-transparent">LBB Number One</h1>
+<p class="text-[10px] uppercase tracking-widest text-on-surface-variant font-bold opacity-70">The Academic Atelier</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 space-y-2">
+<!-- Dashboard -->
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors hover:bg-surface-container-high dark:hover:bg-surface-dim rounded-xl group transition-all duration-200" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">dashboard</span>
+<span class="font-medium">Dashboard</span>
+</a>
+<!-- Select Package (ACTIVE) -->
+<a class="flex items-center gap-3 px-4 py-3 text-primary dark:text-inverse-primary bg-surface-container-lowest dark:bg-surface-variant rounded-xl font-bold transition-transform scale-95 active:scale-90" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">inventory_2</span>
+<span>Select Package</span>
+</a>
+<!-- Lesson Schedule -->
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors hover:bg-surface-container-high dark:hover:bg-surface-dim rounded-xl group transition-all duration-200" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">calendar_month</span>
+<span class="font-medium">Lesson Schedule</span>
+</a>
+<!-- History -->
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors hover:bg-surface-container-high dark:hover:bg-surface-dim rounded-xl group transition-all duration-200" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">history</span>
+<span class="font-medium">History</span>
+</a>
+<!-- Profile -->
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors hover:bg-surface-container-high dark:hover:bg-surface-dim rounded-xl group transition-all duration-200" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">person</span>
+<span class="font-medium">Profile</span>
+</a>
+</nav>
+<div class="mt-auto pt-6">
+<button class="w-full py-3 bg-gradient-to-br from-primary to-primary-container text-white rounded-xl font-bold flex items-center justify-center gap-2 hover:shadow-lg transition-all active:scale-95">
+<span class="material-symbols-outlined text-sm">add_circle</span>
+<span>Book a Session</span>
+</button>
+<div class="mt-6 flex items-center gap-3 p-3 bg-surface-container rounded-xl">
+<div class="w-8 h-8 rounded-full bg-secondary text-on-secondary flex items-center justify-center font-bold text-xs">BS</div>
+<div class="flex-1 overflow-hidden">
+<p class="text-xs font-bold truncate">Baru Siswa</p>
+<p class="text-[10px] text-on-surface-variant opacity-70">Student ID: #2024</p>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant text-sm">logout</span>
+</div>
+</div>
+</aside>
+<!-- TopNavBar Shell -->
+<header class="fixed top-0 right-0 w-[calc(100%-16rem)] h-16 bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-xl flex justify-between items-center px-8 z-40">
+<div class="flex items-center gap-4 bg-surface-container-low px-4 py-2 rounded-full w-96">
+<span class="material-symbols-outlined text-outline">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm w-full placeholder:text-outline/60" placeholder="Cari materi, jadwal, atau tutor..." type="text"/>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-4">
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full border-2 border-surface"></span>
+</button>
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+<div class="h-8 w-px bg-outline-variant/30"></div>
+<div class="flex items-center gap-3">
+<p class="text-xs font-bold text-right leading-none">
+<span class="block">Pilih Paket</span>
+<span class="text-[10px] font-normal text-on-surface-variant">Active Path</span>
+</p>
+<div class="w-10 h-10 rounded-full bg-surface-container-highest overflow-hidden border-2 border-primary/20">
+<img alt="User Profile Avatar" class="w-full h-full object-cover" data-alt="A professional close-up headshot of a student in a brightly lit, modern academic setting. The lighting is soft and natural, emphasizing a clean and focused atmosphere consistent with a premium educational platform. The student has a friendly yet determined expression, representing growth and academic potential." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtxwUZsN6yiaNCY8hGLF2H372VhB0dHDJNBWtrASzO8xxsf4gPvcd19ucBw-CnjlLF0Pf9GoO7pk2hzfILsosEEPiHCmjmEduU6DpbBGmLHtJQmlNpbzr_h7QMZuDZ2OQyBQc3CAdeZfr0SMpFTTu30HAfK2-8VBAHWxe52DSZ0YSJRjoZqvTk6dVzIJ3MmBijZIviO40YZx0lHdnke4bUqQAX1EJIHCXAz2KuqcqaxU901_2u4B-35L0jTdTF5RdWF1YMXH1WhOqW"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="ml-64 pt-24 pb-12 px-12 min-h-screen">
+<!-- Header Section -->
+<section class="max-w-6xl mx-auto mb-12">
+<div class="flex flex-col md:flex-row justify-between items-end gap-6">
+<div class="max-w-2xl">
+<h2 class="font-headline text-4xl font-extrabold tracking-tight text-on-surface mb-3">Pilih Paket Belajar</h2>
+<p class="text-on-surface-variant text-lg leading-relaxed">Temukan kurikulum yang dirancang khusus untuk mengakselerasi potensi akademik Anda.</p>
+</div>
+<!-- Status Banner -->
+<div class="bg-primary-fixed/30 border-l-4 border-primary px-6 py-4 rounded-xl flex items-center gap-4 backdrop-blur-sm">
+<div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<div>
+<p class="text-xs font-bold text-primary uppercase tracking-wider">Status Sekarang</p>
+<p class="text-on-surface font-semibold">Anda memiliki paket aktif: <span class="text-primary">Paket Reguler</span></p>
+</div>
+</div>
+</div>
+</section>
+<!-- Package Catalog - Bento/Grid Layout -->
+<section class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Card 1: Paket Reguler -->
+<div class="group relative bg-surface-container-lowest rounded-2xl p-8 flex flex-col h-full border border-outline-variant/10 hover:border-primary/20 transition-all duration-300">
+<div class="mb-8">
+<div class="w-14 h-14 bg-surface-container-low rounded-2xl flex items-center justify-center text-primary-container mb-6 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-3xl">menu_book</span>
+</div>
+<h3 class="font-headline text-2xl font-bold text-on-surface mb-1">Paket Reguler</h3>
+<p class="text-on-surface-variant font-medium">8 sesi per bulan</p>
+</div>
+<div class="space-y-4 mb-10 flex-1">
+<div class="flex justify-between items-center py-3 border-b border-outline-variant/10">
+<span class="text-on-surface-variant text-sm">Mata Pelajaran:</span>
+<span class="text-on-surface font-bold text-sm">Matematika</span>
+</div>
+<div class="flex justify-between items-center py-3 border-b border-outline-variant/10">
+<span class="text-on-surface-variant text-sm">Jumlah Pertemuan:</span>
+<span class="text-on-surface font-bold text-sm">8x</span>
+</div>
+<div class="flex justify-between items-center py-3 border-b border-outline-variant/10">
+<span class="text-on-surface-variant text-sm">Durasi Sesi:</span>
+<span class="text-on-surface font-bold text-sm">90 menit</span>
+</div>
+</div>
+<div class="mt-auto">
+<p class="text-3xl font-extrabold text-primary mb-6">Rp 500.000</p>
+<button class="w-full py-4 bg-surface-container-high text-primary hover:bg-primary hover:text-white rounded-xl font-bold transition-all duration-300">
+                        Pilih Paket
+                    </button>
+</div>
+</div>
+<!-- Card 2: Paket Intensif (FEATURED) -->
+<div class="group relative bg-surface-container-lowest rounded-2xl p-8 flex flex-col h-full border-2 border-primary active-glow transition-all duration-300 scale-105 z-10 overflow-hidden">
+<!-- Badge -->
+<div class="absolute top-0 right-0 bg-primary text-white px-6 py-2 rounded-bl-2xl text-xs font-black uppercase tracking-widest shadow-lg">
+                    Paling Populer
+                </div>
+<div class="mb-8">
+<div class="w-14 h-14 bg-primary rounded-2xl flex items-center justify-center text-white mb-6 group-hover:rotate-3 transition-transform shadow-xl shadow-primary/20">
+<span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">rocket_launch</span>
+</div>
+<h3 class="font-headline text-2xl font-bold text-on-surface mb-1">Paket Intensif</h3>
+<p class="text-primary font-bold">12 sesi per bulan</p>
+</div>
+<div class="space-y-4 mb-10 flex-1">
+<div class="flex justify-between items-center py-3 border-b border-primary/10">
+<span class="text-on-surface-variant text-sm">Mata Pelajaran:</span>
+<span class="text-on-surface font-bold text-sm">Matematika / IPA</span>
+</div>
+<div class="flex justify-between items-center py-3 border-b border-primary/10">
+<span class="text-on-surface-variant text-sm">Jumlah Pertemuan:</span>
+<span class="text-on-surface font-bold text-sm">12x</span>
+</div>
+<div class="flex justify-between items-center py-3 border-b border-primary/10">
+<span class="text-on-surface-variant text-sm">Durasi Sesi:</span>
+<span class="text-on-surface font-bold text-sm">90 menit</span>
+</div>
+<div class="flex items-center gap-2 text-tertiary-container py-2 text-xs font-bold italic">
+<span class="material-symbols-outlined text-sm">star</span>
+<span>Termasuk Modul Eksklusif</span>
+</div>
+</div>
+<div class="mt-auto">
+<p class="text-4xl font-extrabold text-primary mb-6">Rp 750.000</p>
+<button class="w-full py-4 bg-gradient-to-br from-primary to-primary-container text-white rounded-xl font-bold shadow-xl shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all">
+                        Pilih Paket
+                    </button>
+</div>
+</div>
+<!-- Card 3: Paket Super Intensif -->
+<div class="group relative bg-surface-container-lowest rounded-2xl p-8 flex flex-col h-full border border-outline-variant/10 hover:border-primary/20 transition-all duration-300">
+<div class="mb-8">
+<div class="w-14 h-14 bg-surface-container-low rounded-2xl flex items-center justify-center text-tertiary mb-6 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-3xl">workspace_premium</span>
+</div>
+<h3 class="font-headline text-2xl font-bold text-on-surface mb-1">Paket Super Intensif</h3>
+<p class="text-on-surface-variant font-medium">16 sesi per bulan</p>
+</div>
+<div class="space-y-4 mb-10 flex-1">
+<div class="flex justify-between items-center py-3 border-b border-outline-variant/10">
+<span class="text-on-surface-variant text-sm">Mata Pelajaran:</span>
+<span class="text-on-surface font-bold text-sm">Semua Mapel UN</span>
+</div>
+<div class="flex justify-between items-center py-3 border-b border-outline-variant/10">
+<span class="text-on-surface-variant text-sm">Jumlah Pertemuan:</span>
+<span class="text-on-surface font-bold text-sm">16x</span>
+</div>
+<div class="flex justify-between items-center py-3 border-b border-outline-variant/10">
+<span class="text-on-surface-variant text-sm">Durasi Sesi:</span>
+<span class="text-on-surface font-bold text-sm">90 menit</span>
+</div>
+</div>
+<div class="mt-auto">
+<p class="text-3xl font-extrabold text-primary mb-6">Rp 1.000.000</p>
+<button class="w-full py-4 bg-surface-container-high text-primary hover:bg-primary hover:text-white rounded-xl font-bold transition-all duration-300">
+                        Pilih Paket
+                    </button>
+</div>
+</div>
+</section>
+<!-- Footer Section -->
+<footer class="max-w-6xl mx-auto mt-20 pt-8 border-t border-outline-variant/10 flex flex-col md:flex-row justify-between items-center gap-6">
+<div class="text-on-surface-variant text-sm">
+                © 2024 LBB Number One. Part of The Academic Atelier.
+            </div>
+<div class="flex gap-8">
+<a class="text-sm text-on-surface-variant hover:text-primary transition-colors font-medium" href="#">Syarat &amp; Ketentuan</a>
+<a class="text-sm text-on-surface-variant hover:text-primary transition-colors font-medium" href="#">Pusat Bantuan</a>
+<a class="text-sm text-on-surface-variant hover:text-primary transition-colors font-medium" href="#">Kontak Support</a>
+</div>
+</footer>
+</main>
+<!-- Contextual FAB -->
+<button class="fixed bottom-8 right-8 w-14 h-14 bg-primary text-white rounded-2xl shadow-2xl flex items-center justify-center hover:scale-110 active:scale-95 transition-transform z-50">
+<span class="material-symbols-outlined text-2xl">chat_bubble</span>
+</button>
+</body></html>

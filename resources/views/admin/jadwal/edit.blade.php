@@ -28,7 +28,10 @@
                             // Jika tutor ini sudah terpilih di jadwal ini, tetap allow
                             $isSelected = $jadwal->tutor_id == $tutor->id;
                         @endphp
-                        <option value="{{ $tutor->id }}" {{ $isSelected ? 'selected' : ($isFull ? 'disabled' : '') }}>
+                        <option value="{{ $tutor->id }}" 
+                            {{ $isSelected ? 'selected' : ($isFull ? 'disabled' : '') }}
+                            class="{{ ($isFull && !$isSelected) ? 'text-gray-400 bg-gray-100' : 'text-gray-900' }}"
+                            style="{{ ($isFull && !$isSelected) ? 'color: #9ca3af; background-color: #f3f4f6;' : '' }}">
                             {{ $tutor->user->name }}
                             @if($isSelected)
                                 (Dipilih saat ini)

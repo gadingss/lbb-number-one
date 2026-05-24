@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends(auth()->user()->role === 'siswa' ? 'layouts.siswa' : (auth()->user()->role === 'tutor' ? 'layouts.tutor' : 'layouts.app'))
 
 @section('title', 'Pengaturan Profil')
 

@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+
+<html class="light" lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-fixed-dim": "#b4c5ff",
+                        "on-error": "#ffffff",
+                        "tertiary-fixed": "#ffdbcd",
+                        "on-secondary-fixed": "#00174b",
+                        "surface-container-low": "#eff4ff",
+                        "on-surface": "#0d1c2e",
+                        "primary-container": "#2563eb",
+                        "outline": "#737686",
+                        "surface-variant": "#d5e3fc",
+                        "on-primary": "#ffffff",
+                        "inverse-on-surface": "#eaf1ff",
+                        "tertiary-fixed-dim": "#ffb596",
+                        "tertiary-container": "#bc4800",
+                        "on-tertiary-fixed": "#360f00",
+                        "primary": "#004ac6",
+                        "on-primary-fixed": "#00174b",
+                        "outline-variant": "#c3c6d7",
+                        "surface-container-highest": "#d5e3fc",
+                        "tertiary": "#943700",
+                        "error": "#ba1a1a",
+                        "surface-container": "#e6eeff",
+                        "background": "#f8f9ff",
+                        "surface-tint": "#0053db",
+                        "secondary-container": "#acbfff",
+                        "on-tertiary-fixed-variant": "#7d2d00",
+                        "on-secondary-fixed-variant": "#31447b",
+                        "surface-container-high": "#dce9ff",
+                        "surface-dim": "#ccdbf3",
+                        "secondary-fixed": "#dbe1ff",
+                        "secondary": "#495c95",
+                        "on-secondary-container": "#394c84",
+                        "on-error-container": "#93000a",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "inverse-primary": "#b4c5ff",
+                        "on-background": "#0d1c2e",
+                        "inverse-surface": "#233144",
+                        "on-surface-variant": "#434655",
+                        "surface": "#f8f9ff",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-container": "#eeefff",
+                        "on-tertiary-container": "#ffede6",
+                        "error-container": "#ffdad6",
+                        "surface-bright": "#f8f9ff",
+                        "primary-fixed": "#dbe1ff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Manrope"],
+                        "display": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #f8f9ff;
+            color: #0d1c2e;
+        }
+        .zero-line-shadow {
+            box-shadow: 0 12px 32px -4px rgba(13, 28, 46, 0.06);
+        }
+    </style>
+</head>
+<body class="font-body selection:bg-primary-container selection:text-on-primary-container">
+<!-- Sidebar Navigation -->
+<aside class="h-screen fixed left-0 top-0 w-64 z-40 flex flex-col h-full py-6 bg-slate-50 border-none">
+<div class="px-8 mb-10">
+<h1 class="text-blue-800 font-extrabold text-lg tracking-tighter uppercase">LBB Number One</h1>
+<p class="text-slate-400 font-headline font-semibold tracking-tight text-xs">Academic Atelier</p>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center px-8 py-3 text-slate-500 font-['Manrope'] font-semibold tracking-tight text-sm hover:bg-blue-100/50 transition-all" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="dashboard">dashboard</span>
+                Dashboard
+            </a>
+<a class="flex items-center px-8 py-3 text-slate-500 font-['Manrope'] font-semibold tracking-tight text-sm hover:bg-blue-100/50 transition-all" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="school">school</span>
+                Siswa
+            </a>
+<a class="flex items-center px-8 py-3 text-slate-500 font-['Manrope'] font-semibold tracking-tight text-sm hover:bg-blue-100/50 transition-all" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="assignment_ind">assignment_ind</span>
+                Pengajar
+            </a>
+<a class="flex items-center px-8 py-3 text-slate-500 font-['Manrope'] font-semibold tracking-tight text-sm hover:bg-blue-100/50 transition-all" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="calendar_month">calendar_month</span>
+                Jadwal
+            </a>
+<a class="flex items-center px-8 py-3 text-slate-500 font-['Manrope'] font-semibold tracking-tight text-sm hover:bg-blue-100/50 transition-all" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="inventory_2">inventory_2</span>
+                Paket Les
+            </a>
+<a class="flex items-center bg-white text-blue-700 font-bold rounded-l-full shadow-sm ml-4 pl-4 py-3 font-['Manrope'] tracking-tight text-sm" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="payments" style="font-variation-settings: 'FILL' 1;">payments</span>
+                Keuangan
+            </a>
+<a class="flex items-center px-8 py-3 text-slate-500 font-['Manrope'] font-semibold tracking-tight text-sm hover:bg-blue-100/50 transition-all" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="settings">settings</span>
+                Pengaturan
+            </a>
+</nav>
+<div class="mt-auto px-8">
+<div class="flex items-center gap-3 p-3 bg-surface-container-low rounded-xl">
+<div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white text-xs font-bold">A</div>
+<div class="overflow-hidden">
+<p class="text-xs font-bold truncate">Admin User</p>
+<p class="text-[10px] text-slate-500 uppercase tracking-widest">Administrator</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Canvas -->
+<main class="ml-64 min-h-screen">
+<!-- TopAppBar -->
+<header class="fixed top-0 right-0 w-[calc(100%-16rem)] z-30 backdrop-blur-xl bg-white/80 transition-all flex justify-between items-center px-10 py-4">
+<div class="flex items-center bg-surface-container-low px-4 py-2 rounded-full w-96">
+<span class="material-symbols-outlined text-slate-400 mr-2" data-icon="search">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm w-full placeholder:text-slate-400" placeholder="Cari transaksi atau siswa..." type="text"/>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-slate-400 hover:bg-slate-100/50 rounded-full transition-all">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 text-slate-400 hover:bg-slate-100/50 rounded-full transition-all">
+<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+</button>
+<div class="h-8 w-px bg-outline-variant/30 mx-2"></div>
+<button class="flex items-center gap-2 hover:bg-slate-100/50 p-1 pr-3 rounded-full transition-all">
+<span class="material-symbols-outlined text-blue-700" data-icon="account_circle">account_circle</span>
+<span class="text-sm font-medium">Admin Bimbel</span>
+</button>
+</div>
+</header>
+<!-- Content Page -->
+<div class="pt-24 px-10 pb-12">
+<!-- Page Header -->
+<div class="flex justify-between items-end mb-10">
+<div>
+<h2 class="text-4xl font-headline font-extrabold tracking-tight text-on-surface">Kelola Pembayaran</h2>
+<p class="text-on-surface-variant mt-2">Manajemen arus kas dan status transaksi siswa secara real-time.</p>
+</div>
+<button class="bg-gradient-to-br from-primary to-primary-container text-white px-6 py-3 rounded-xl font-bold flex items-center gap-2 zero-line-shadow transition-transform hover:scale-[1.02] active:scale-[0.98]">
+<span class="material-symbols-outlined" data-icon="add_circle">add_circle</span>
+                    Tambah Pembayaran Baru
+                </button>
+</div>
+<!-- Metrics Row (Bento Style) -->
+<div class="grid grid-cols-12 gap-6 mb-10">
+<div class="col-span-12 lg:col-span-5 bg-surface-container-lowest p-8 rounded-2xl zero-line-shadow border border-outline-variant/10">
+<p class="text-label text-slate-500 font-semibold tracking-wider uppercase text-xs mb-4">Total Pendapatan Bulan Ini</p>
+<div class="flex items-end gap-4">
+<h3 class="text-5xl font-display font-black text-primary">Rp 42.5M</h3>
+<span class="flex items-center text-green-600 bg-green-50 px-2 py-1 rounded-lg text-sm font-bold mb-2">
+<span class="material-symbols-outlined text-sm mr-1" data-icon="trending_up">trending_up</span>
+                            12%
+                        </span>
+</div>
+</div>
+<div class="col-span-12 lg:col-span-3 bg-surface-container-low p-8 rounded-2xl border border-outline-variant/10">
+<p class="text-label text-slate-500 font-semibold tracking-wider uppercase text-xs mb-4">Menunggu Konfirmasi</p>
+<div class="flex items-center gap-4">
+<span class="text-4xl font-display font-extrabold text-tertiary">24</span>
+<div class="h-12 w-12 rounded-full bg-tertiary-fixed flex items-center justify-center">
+<span class="material-symbols-outlined text-tertiary" data-icon="pending_actions">pending_actions</span>
+</div>
+</div>
+</div>
+<div class="col-span-12 lg:col-span-4 bg-surface-container-lowest p-8 rounded-2xl zero-line-shadow border border-outline-variant/10">
+<p class="text-label text-slate-500 font-semibold tracking-wider uppercase text-xs mb-4">Metode Terpopuler</p>
+<div class="flex items-center gap-4">
+<div class="flex-1">
+<h4 class="text-xl font-bold">Transfer Bank</h4>
+<p class="text-xs text-on-surface-variant">Digunakan oleh 68% orang tua siswa</p>
+</div>
+<div class="h-14 w-14 rounded-2xl bg-secondary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-secondary-container text-2xl" data-icon="account_balance">account_balance</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Filter & Search Bar -->
+<div class="bg-surface-container-low p-6 rounded-2xl mb-8 flex flex-wrap items-center gap-4">
+<div class="flex-1 min-w-[200px]">
+<label class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1 ml-1">Cari Nama Siswa</label>
+<div class="bg-white px-4 py-2.5 rounded-xl flex items-center border-none">
+<span class="material-symbols-outlined text-slate-300 mr-2" data-icon="person_search">person_search</span>
+<input class="bg-transparent border-none p-0 focus:ring-0 text-sm w-full" placeholder="Masukkan nama..." type="text"/>
+</div>
+</div>
+<div class="w-48">
+<label class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1 ml-1">Status</label>
+<select class="w-full bg-white px-4 py-2.5 rounded-xl border-none text-sm focus:ring-primary/20">
+<option>Semua Status</option>
+<option>Lunas</option>
+<option>Menunggu</option>
+<option>Dibatalkan</option>
+</select>
+</div>
+<div class="w-80">
+<label class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1 ml-1">Rentang Tanggal</label>
+<div class="flex items-center gap-2">
+<input class="bg-white px-3 py-2.5 rounded-xl border-none text-xs w-full focus:ring-primary/20" type="date"/>
+<span class="text-slate-400">—</span>
+<input class="bg-white px-3 py-2.5 rounded-xl border-none text-xs w-full focus:ring-primary/20" type="date"/>
+</div>
+</div>
+<div class="pt-5">
+<button class="bg-on-surface text-white px-6 py-2.5 rounded-xl font-bold flex items-center gap-2 hover:bg-slate-800 transition-colors">
+<span class="material-symbols-outlined text-sm" data-icon="filter_list">filter_list</span>
+                        Filter
+                    </button>
+</div>
+</div>
+<!-- Transaction Table Container -->
+<div class="bg-surface-container-lowest rounded-3xl overflow-hidden zero-line-shadow">
+<table class="w-full text-left border-collapse">
+<thead class="bg-surface-container-high">
+<tr>
+<th class="py-5 px-6 text-[10px] font-bold text-slate-500 uppercase tracking-[0.05em]">No</th>
+<th class="py-5 px-6 text-[10px] font-bold text-slate-500 uppercase tracking-[0.05em]">Siswa</th>
+<th class="py-5 px-6 text-[10px] font-bold text-slate-500 uppercase tracking-[0.05em]">Paket Belajar</th>
+<th class="py-5 px-6 text-[10px] font-bold text-slate-500 uppercase tracking-[0.05em]">Jumlah</th>
+<th class="py-5 px-6 text-[10px] font-bold text-slate-500 uppercase tracking-[0.05em]">Metode</th>
+<th class="py-5 px-6 text-[10px] font-bold text-slate-500 uppercase tracking-[0.05em]">Tanggal</th>
+<th class="py-5 px-6 text-[10px] font-bold text-slate-500 uppercase tracking-[0.05em]">Status</th>
+<th class="py-5 px-6 text-[10px] font-bold text-slate-500 uppercase tracking-[0.05em] text-right">Aksi</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-50">
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="py-6 px-6 text-sm text-slate-400">01</td>
+<td class="py-6 px-6">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-full overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A professional studio portrait of a young male student wearing a clean white shirt, smiling warmly against a soft blue background. The lighting is bright and airy, reflecting a modern academic environment. The image is crisp and clean, following the 'Academic Atelier' visual style of high-end educational branding." src="https://lh3.googleusercontent.com/aida-public/AB6AXuABZ_H3SFXgFil1psnzjWPQVbUpQRI5TizY2Ky1sciWp3BtNjChN2NeHlVwkvJ4E4dlcB8FqcjoK83MlO8YgVku-7oh2pD-a2xKf_Vg2VmLs7FyQNJJ65xcnB9H8JX65DRanmR-cf4p5VfrqFH9EMBBQVmfxAZ3t3bKxmm2oIWZSFMaK-jH6YfRT2nJk3JldaVJh-8zekDjerzS7yU7Gy-t1JSIDI1ypCmTmDCuBRhtlX0ey-nsrvaFTS8IXco1LAonu5dpR6GP2BvS"/>
+</div>
+<div>
+<p class="font-bold text-on-surface">Ahmad Fauzi</p>
+<p class="text-xs text-slate-400">INV-88291</p>
+</div>
+</div>
+</td>
+<td class="py-6 px-6">
+<span class="text-sm font-medium text-on-surface-variant">Paket Intensif UTBK</span>
+</td>
+<td class="py-6 px-6">
+<span class="text-sm font-bold text-on-surface">Rp 2.500.000</span>
+</td>
+<td class="py-6 px-6">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-slate-400 text-lg" data-icon="account_balance">account_balance</span>
+<span class="text-xs text-on-surface-variant">Transfer BCA</span>
+</div>
+</td>
+<td class="py-6 px-6 text-sm text-on-surface-variant">12 Mei 2024</td>
+<td class="py-6 px-6">
+<span class="px-3 py-1 bg-primary-fixed text-on-primary-fixed-variant text-[10px] font-black uppercase tracking-wider rounded-full">Lunas</span>
+</td>
+<td class="py-6 px-6 text-right">
+<div class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-2 bg-white text-primary rounded-lg shadow-sm border border-outline-variant/10 hover:bg-primary hover:text-white transition-all">
+<span class="material-symbols-outlined text-sm" data-icon="edit">edit</span>
+</button>
+<button class="p-2 bg-white text-error rounded-lg shadow-sm border border-outline-variant/10 hover:bg-error hover:text-white transition-all">
+<span class="material-symbols-outlined text-sm" data-icon="delete">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="py-6 px-6 text-sm text-slate-400">02</td>
+<td class="py-6 px-6">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-full overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A portrait of a young female student with a bright expression, posing in a modern library with soft bokeh in the background. The lighting is natural and highlights her professional, academic look. The color palette features whites and soft blues, aligning with a premium educational dashboard aesthetic. High quality, clear, and trustworthy." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBRNk4JM_uMoW4A0a171kSlNqVWnTlY8rpLbmnr200JbPiquTR8E5qS17-U_AO_Eh4GdK-jVMNJ6S8GVIjA96mnb2DmKsp28cbrkSZ3eygqN323e-ph79ofyYjZ3DPIrcS15nJHIWFFKWclE-9_a5Fkz_70XeJYY3Hq0N6BGxCMvjl10kTmlkB-siq_M-nbWv7uHstMuGs_pUOz6IBca1VWtaZ1WkMiO6zBO-tQY9NgRz73H98qcI8rY5I548BI3wptXAzbXvrENkX9"/>
+</div>
+<div>
+<p class="font-bold text-on-surface">Siti Aminah</p>
+<p class="text-xs text-slate-400">INV-88292</p>
+</div>
+</div>
+</td>
+<td class="py-6 px-6">
+<span class="text-sm font-medium text-on-surface-variant">Privat Matematika</span>
+</td>
+<td class="py-6 px-6">
+<span class="text-sm font-bold text-on-surface">Rp 750.000</span>
+</td>
+<td class="py-6 px-6">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-slate-400 text-lg" data-icon="payments">payments</span>
+<span class="text-xs text-on-surface-variant">Tunai</span>
+</div>
+</td>
+<td class="py-6 px-6 text-sm text-on-surface-variant">11 Mei 2024</td>
+<td class="py-6 px-6">
+<span class="px-3 py-1 bg-tertiary-fixed text-on-tertiary-fixed-variant text-[10px] font-black uppercase tracking-wider rounded-full">Menunggu</span>
+</td>
+<td class="py-6 px-6 text-right">
+<div class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-2 bg-white text-primary rounded-lg shadow-sm border border-outline-variant/10 hover:bg-primary hover:text-white transition-all">
+<span class="material-symbols-outlined text-sm" data-icon="edit">edit</span>
+</button>
+<button class="p-2 bg-white text-error rounded-lg shadow-sm border border-outline-variant/10 hover:bg-error hover:text-white transition-all">
+<span class="material-symbols-outlined text-sm" data-icon="delete">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="py-6 px-6 text-sm text-slate-400">03</td>
+<td class="py-6 px-6">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-full overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A sharp, minimalist portrait of a male student looking confident. The background is a flat, architectural surface in a neutral gray-blue. The lighting is directional but soft, emphasizing a professional educational vibe. The image uses a palette of slate and white to maintain cohesion with a premium administrative interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBhGUw16wGaLWdZ7W7ANgReM8vMhcrGnRcJxBm7Pj5v3pkIOfkWJrUr69XluII_2xGQ1OCzMix0Zk1c9tYvW_BfNm6eqcL4uP3zD5MdSfoyVSbx9LLhLN5JhFlRjUoVKLmsk2LXbcHNkBsw4Td_L6dj3MANb537k7df7pFgM8TCxRYeoJrXymRCJxJPZ9L3wToII9F2sCcN8BcScRiKlMiA_aWojaHM9sqwOpO0KYP7D8s4ep5_gnLeZcTl0cFpMLrBuvK4QutH-JPN"/>
+</div>
+<div>
+<p class="font-bold text-on-surface">Budi Darmawan</p>
+<p class="text-xs text-slate-400">INV-88293</p>
+</div>
+</div>
+</td>
+<td class="py-6 px-6">
+<span class="text-sm font-medium text-on-surface-variant">Reguler SD (Bulan Mei)</span>
+</td>
+<td class="py-6 px-6">
+<span class="text-sm font-bold text-on-surface">Rp 1.200.000</span>
+</td>
+<td class="py-6 px-6">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-slate-400 text-lg" data-icon="account_balance">account_balance</span>
+<span class="text-xs text-on-surface-variant">Transfer Mandiri</span>
+</div>
+</td>
+<td class="py-6 px-6 text-sm text-on-surface-variant">10 Mei 2024</td>
+<td class="py-6 px-6">
+<span class="px-3 py-1 bg-primary-fixed text-on-primary-fixed-variant text-[10px] font-black uppercase tracking-wider rounded-full">Lunas</span>
+</td>
+<td class="py-6 px-6 text-right">
+<div class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-2 bg-white text-primary rounded-lg shadow-sm border border-outline-variant/10 hover:bg-primary hover:text-white transition-all">
+<span class="material-symbols-outlined text-sm" data-icon="edit">edit</span>
+</button>
+<button class="p-2 bg-white text-error rounded-lg shadow-sm border border-outline-variant/10 hover:bg-error hover:text-white transition-all">
+<span class="material-symbols-outlined text-sm" data-icon="delete">delete</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<!-- Pagination -->
+<div class="px-6 py-4 bg-white border-t border-slate-50 flex items-center justify-between">
+<p class="text-xs text-slate-400 font-medium">Menampilkan <span class="text-on-surface">3</span> dari <span class="text-on-surface">148</span> transaksi</p>
+<div class="flex items-center gap-1">
+<button class="p-2 text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="chevron_left">chevron_left</span>
+</button>
+<button class="w-8 h-8 rounded-lg bg-primary text-white text-xs font-bold">1</button>
+<button class="w-8 h-8 rounded-lg hover:bg-slate-100 text-slate-600 text-xs font-bold transition-colors">2</button>
+<button class="w-8 h-8 rounded-lg hover:bg-slate-100 text-slate-600 text-xs font-bold transition-colors">3</button>
+<span class="px-2 text-slate-300">...</span>
+<button class="w-8 h-8 rounded-lg hover:bg-slate-100 text-slate-600 text-xs font-bold transition-colors">15</button>
+<button class="p-2 text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Asymmetric Support Section -->
+<div class="mt-12 flex flex-col md:flex-row gap-6">
+<div class="flex-1 bg-white p-8 rounded-3xl zero-line-shadow border border-outline-variant/5">
+<div class="flex items-start gap-6">
+<div class="h-16 w-16 rounded-2xl bg-blue-50 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-3xl" data-icon="analytics" style="font-variation-settings: 'FILL' 1;">analytics</span>
+</div>
+<div>
+<h5 class="text-xl font-bold mb-2">Laporan Rekapitulasi</h5>
+<p class="text-on-surface-variant text-sm mb-6 max-w-md">Unduh laporan keuangan bulanan secara lengkap dalam format PDF atau Excel untuk keperluan pembukuan internal bimbel.</p>
+<div class="flex gap-3">
+<button class="px-5 py-2.5 bg-surface-container-high text-primary rounded-xl text-sm font-bold flex items-center gap-2 hover:bg-blue-100 transition-colors">
+<span class="material-symbols-outlined text-sm" data-icon="download">download</span>
+                                    Export PDF
+                                </button>
+<button class="px-5 py-2.5 bg-surface-container-high text-primary rounded-xl text-sm font-bold flex items-center gap-2 hover:bg-blue-100 transition-colors">
+<span class="material-symbols-outlined text-sm" data-icon="table_view">table_view</span>
+                                    Export Excel
+                                </button>
+</div>
+</div>
+</div>
+</div>
+<div class="w-full md:w-80 bg-blue-900 text-white p-8 rounded-3xl zero-line-shadow flex flex-col justify-between">
+<div>
+<span class="inline-block px-3 py-1 bg-blue-800 rounded-full text-[10px] font-black uppercase tracking-widest mb-4">Tips Admin</span>
+<h5 class="text-lg font-bold leading-tight mb-2">Siklus Pembayaran Tercepat</h5>
+<p class="text-blue-200 text-xs leading-relaxed">Pembayaran tunai rata-rata diproses dalam 24 jam. Gunakan fitur konfirmasi cepat untuk menjaga arus kas tetap stabil.</p>
+</div>
+<a class="mt-6 flex items-center text-xs font-bold text-blue-100 hover:text-white transition-colors group" href="#">
+                        Lihat Panduan 
+                        <span class="material-symbols-outlined text-sm ml-2 group-hover:translate-x-1 transition-transform" data-icon="arrow_forward">arrow_forward</span>
+</a>
+</div>
+</div>
+</div>
+</main>
+</body></html>

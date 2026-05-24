@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Tutor Schedule | The Academic Atelier</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-dim": "#ccdbf3",
+                        "on-tertiary-container": "#ffede6",
+                        "surface-bright": "#f8f9ff",
+                        "on-tertiary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "primary-fixed": "#dbe1ff",
+                        "on-primary-fixed": "#00174b",
+                        "inverse-on-surface": "#eaf1ff",
+                        "surface-tint": "#0053db",
+                        "primary": "#004ac6",
+                        "secondary-fixed": "#dbe1ff",
+                        "on-secondary-fixed": "#00174b",
+                        "tertiary-fixed": "#ffdbcd",
+                        "surface-container": "#e6eeff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-container": "#eeefff",
+                        "on-primary": "#ffffff",
+                        "background": "#f8f9ff",
+                        "on-background": "#0d1c2e",
+                        "on-tertiary-fixed": "#360f00",
+                        "on-secondary-container": "#394c84",
+                        "surface-container-high": "#dce9ff",
+                        "outline": "#737686",
+                        "inverse-surface": "#233144",
+                        "surface-container-low": "#eff4ff",
+                        "error": "#ba1a1a",
+                        "surface-variant": "#d5e3fc",
+                        "tertiary": "#943700",
+                        "secondary-container": "#acbfff",
+                        "on-secondary-fixed-variant": "#31447b",
+                        "primary-container": "#2563eb",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "on-secondary": "#ffffff",
+                        "on-surface-variant": "#434655",
+                        "on-error": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "secondary-fixed-dim": "#b4c5ff",
+                        "on-tertiary-fixed-variant": "#7d2d00",
+                        "inverse-primary": "#b4c5ff",
+                        "tertiary-container": "#bc4800",
+                        "on-surface": "#0d1c2e",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "outline-variant": "#c3c6d7",
+                        "tertiary-fixed-dim": "#ffb596",
+                        "surface-container-highest": "#d5e3fc",
+                        "surface": "#f8f9ff",
+                        "secondary": "#495c95"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .filled-icon {
+            font-variation-settings: 'FILL' 1;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9ff;
+        }
+        h1, h2, h3, .brand-font {
+            font-family: 'Manrope', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- SideNavBar (The Anchor) -->
+<aside class="fixed left-0 top-0 h-full w-64 bg-blue-50 dark:bg-slate-950 flex flex-col h-full py-8 space-y-6 z-50">
+<div class="px-6 mb-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-primary-container flex items-center justify-center text-white">
+<span class="material-symbols-outlined filled-icon" data-icon="school">school</span>
+</div>
+<div>
+<h2 class="text-lg font-black text-blue-900 dark:text-blue-50 leading-tight">LBB Management</h2>
+<p class="text-[10px] uppercase tracking-widest text-slate-500 font-bold">Private Tutoring Elite</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 px-4 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:text-blue-600 transition-all duration-300 hover:bg-slate-200/50" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-manrope text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:text-blue-600 transition-all duration-300 hover:bg-slate-200/50" href="#">
+<span class="material-symbols-outlined" data-icon="school">school</span>
+<span class="font-manrope text-sm font-medium">Tutors</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-blue-700 dark:text-blue-300 font-bold border-r-4 border-blue-600 dark:border-blue-400 bg-blue-100/50 dark:bg-blue-900/20 transition-all duration-300" href="#">
+<span class="material-symbols-outlined filled-icon" data-icon="calendar_month">calendar_month</span>
+<span class="font-manrope text-sm font-medium">Scheduling</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:text-blue-600 transition-all duration-300 hover:bg-slate-200/50" href="#">
+<span class="material-symbols-outlined" data-icon="assignment_turned_in">assignment_turned_in</span>
+<span class="font-manrope text-sm font-medium">Attendance</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:text-blue-600 transition-all duration-300 hover:bg-slate-200/50" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="font-manrope text-sm font-medium">Reports</span>
+</a>
+</nav>
+<div class="px-4 py-6 border-t border-blue-100/50">
+<button class="w-full py-3 px-4 bg-gradient-to-br from-primary to-primary-container text-white rounded-xl font-bold text-sm flex items-center justify-center gap-2 active:scale-95 transition-all shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined text-sm" data-icon="add">add</span>
+                Add New Session
+            </button>
+</div>
+<div class="px-4 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 hover:bg-slate-200/50 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-manrope text-sm font-medium">Settings</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 hover:bg-slate-200/50 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span class="font-manrope text-sm font-medium">Logout</span>
+</a>
+</div>
+</aside>
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-40 bg-slate-50/80 dark:bg-slate-900/80 backdrop-blur-xl flex justify-between items-center h-16 px-8 ml-64 max-w-[calc(100%-16rem)] no-border tonal-shift surface-container-low">
+<div class="flex items-center gap-8">
+<h1 class="text-xl font-bold tracking-tight text-blue-900 dark:text-blue-100">The Academic Atelier</h1>
+<div class="hidden lg:flex relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg" data-icon="search">search</span>
+<input class="bg-surface-container-highest border-none rounded-full pl-10 pr-4 py-1.5 text-sm w-64 focus:ring-2 focus:ring-primary/20 placeholder:text-slate-500" placeholder="Search schedules, tutors..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="w-10 h-10 rounded-full flex items-center justify-center text-slate-500 hover:bg-blue-50/50 active:scale-95 transition-all">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="w-10 h-10 rounded-full flex items-center justify-center text-slate-500 hover:bg-blue-50/50 active:scale-95 transition-all">
+<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+</button>
+<div class="h-8 w-[1px] bg-slate-200 mx-2"></div>
+<div class="flex items-center gap-3">
+<img alt="Administrator Profile" class="w-10 h-10 rounded-full object-cover ring-2 ring-white" data-alt="professional headshot of a senior academic administrator with salt and pepper hair in a modern office" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAvuntzxCuCCJZyhb7pIU1ZLtmnfttospwvNhbczVnnNckgwxN2842EQCfmQUxKW4sfuWIv9tZfpOrWMoSJayijUfvQpGC9kwVDUSimFhBJqHxtRrE4k7B2g7_K0FVKyFjlLhm70xLch7_qfe9cIt1gIimqH6CFoYWmg9my4-3lF76QII_3FPKbvyxIY8Me1U51yv5vKk_BMRwmFIrWIMJuZ-PGJ5jPTtXDXI5Ft0BAPOOfYrmSGR6jg4kIW-hyJ7sLyNsOwASgWv8b"/>
+<div class="hidden sm:block">
+<p class="text-sm font-bold text-on-background">Dr. Aris Thorne</p>
+<p class="text-[10px] text-slate-500 uppercase font-bold tracking-tighter">Chief Registrar</p>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="ml-64 pt-16 p-8 min-h-screen">
+<div class="grid grid-cols-12 gap-8 max-w-7xl mx-auto">
+<!-- Left Column: Scheduler Form and Table -->
+<div class="col-span-12 lg:col-span-8 space-y-8">
+<!-- Page Title -->
+<div class="flex flex-col gap-1">
+<h2 class="text-3xl font-extrabold text-blue-900 tracking-tight font-headline">Tutor Scheduling</h2>
+<p class="text-slate-500 font-medium">Orchestrate and optimize learning sessions with precision.</p>
+</div>
+<!-- Create New Schedule Form -->
+<section class="bg-surface-container-lowest rounded-xl p-8 border border-outline-variant/15">
+<div class="flex items-center gap-3 mb-6">
+<div class="w-8 h-8 rounded-lg bg-primary-fixed flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-sm" data-icon="edit_calendar">edit_calendar</span>
+</div>
+<h3 class="text-lg font-bold text-on-background font-headline">Create New Schedule</h3>
+</div>
+<form class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="space-y-2">
+<label class="text-xs font-bold text-slate-500 uppercase tracking-wider ml-1">Tutor</label>
+<select class="w-full bg-surface-container-highest border-none rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-primary/20 appearance-none">
+<option>Select a Tutor</option>
+<option>Prof. Julian Vane</option>
+<option>Dr. Elena Kostas</option>
+<option>Marcus Wright</option>
+</select>
+</div>
+<div class="space-y-2">
+<label class="text-xs font-bold text-slate-500 uppercase tracking-wider ml-1">Subject</label>
+<select class="w-full bg-surface-container-highest border-none rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-primary/20 appearance-none">
+<option>Select Subject</option>
+<option>Advanced Calculus</option>
+<option>Macroeconomics</option>
+<option>Organic Chemistry</option>
+</select>
+</div>
+<div class="space-y-2">
+<label class="text-xs font-bold text-slate-500 uppercase tracking-wider ml-1">Day of Week</label>
+<select class="w-full bg-surface-container-highest border-none rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-primary/20 appearance-none">
+<option>Monday</option>
+<option>Tuesday</option>
+<option>Wednesday</option>
+<option>Thursday</option>
+<option>Friday</option>
+</select>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="space-y-2">
+<label class="text-xs font-bold text-slate-500 uppercase tracking-wider ml-1">Start Time</label>
+<input class="w-full bg-surface-container-highest border-none rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-primary/20" type="time"/>
+</div>
+<div class="space-y-2">
+<label class="text-xs font-bold text-slate-500 uppercase tracking-wider ml-1">End Time</label>
+<input class="w-full bg-surface-container-highest border-none rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-primary/20" type="time"/>
+</div>
+</div>
+<div class="md:col-span-2 flex justify-end pt-2">
+<button class="bg-gradient-to-br from-primary to-primary-container text-white px-8 py-3 rounded-xl font-bold hover:shadow-lg active:scale-95 transition-all" type="submit">
+                                Generate Schedule Entry
+                            </button>
+</div>
+</form>
+</section>
+<!-- Weekly Overview Table -->
+<section class="bg-surface-container-low rounded-xl overflow-hidden">
+<div class="p-6 flex justify-between items-center bg-white border-b border-outline-variant/10">
+<h3 class="text-lg font-bold text-on-background font-headline">Weekly Overview</h3>
+<div class="flex gap-2">
+<button class="p-2 rounded-lg hover:bg-slate-100 text-slate-500"><span class="material-symbols-outlined" data-icon="filter_list">filter_list</span></button>
+<button class="p-2 rounded-lg hover:bg-slate-100 text-slate-500"><span class="material-symbols-outlined" data-icon="download">download</span></button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-high">
+<th class="px-6 py-4 text-[10px] font-black text-slate-500 uppercase tracking-[0.1em]">Tutor</th>
+<th class="px-6 py-4 text-[10px] font-black text-slate-500 uppercase tracking-[0.1em]">Subject</th>
+<th class="px-6 py-4 text-[10px] font-black text-slate-500 uppercase tracking-[0.1em]">Day</th>
+<th class="px-6 py-4 text-[10px] font-black text-slate-500 uppercase tracking-[0.1em]">Time Window</th>
+<th class="px-6 py-4 text-[10px] font-black text-slate-500 uppercase tracking-[0.1em] text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-100/50">
+<tr class="group hover:bg-surface-container-lowest transition-colors bg-white/40">
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold text-xs">JV</div>
+<span class="text-sm font-semibold text-on-background">Prof. Julian Vane</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<span class="px-3 py-1 rounded-full bg-primary-fixed text-on-primary-fixed text-[10px] font-bold uppercase tracking-wide">Macroeconomics</span>
+</td>
+<td class="px-6 py-5 text-sm text-slate-600">Monday</td>
+<td class="px-6 py-5 text-sm font-medium text-blue-700">09:00 AM - 11:30 AM</td>
+<td class="px-6 py-5 text-right">
+<button class="text-slate-400 hover:text-primary transition-colors"><span class="material-symbols-outlined text-lg" data-icon="more_vert">more_vert</span></button>
+</td>
+</tr>
+<tr class="group hover:bg-surface-container-lowest transition-colors bg-white/40">
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center text-purple-600 font-bold text-xs">EK</div>
+<span class="text-sm font-semibold text-on-background">Dr. Elena Kostas</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<span class="px-3 py-1 rounded-full bg-tertiary-fixed text-on-tertiary-fixed text-[10px] font-bold uppercase tracking-wide">Organic Chemistry</span>
+</td>
+<td class="px-6 py-5 text-sm text-slate-600">Monday</td>
+<td class="px-6 py-5 text-sm font-medium text-blue-700">01:00 PM - 03:00 PM</td>
+<td class="px-6 py-5 text-right">
+<button class="text-slate-400 hover:text-primary transition-colors"><span class="material-symbols-outlined text-lg" data-icon="more_vert">more_vert</span></button>
+</td>
+</tr>
+<tr class="group hover:bg-surface-container-lowest transition-colors bg-white/40">
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-orange-100 flex items-center justify-center text-orange-600 font-bold text-xs">MW</div>
+<span class="text-sm font-semibold text-on-background">Marcus Wright</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<span class="px-3 py-1 rounded-full bg-surface-variant text-on-surface-variant text-[10px] font-bold uppercase tracking-wide">Advanced Calculus</span>
+</td>
+<td class="px-6 py-5 text-sm text-slate-600">Tuesday</td>
+<td class="px-6 py-5 text-sm font-medium text-blue-700">10:00 AM - 12:00 PM</td>
+<td class="px-6 py-5 text-right">
+<button class="text-slate-400 hover:text-primary transition-colors"><span class="material-symbols-outlined text-lg" data-icon="more_vert">more_vert</span></button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</div>
+<!-- Right Column: Sidebar Elements -->
+<div class="col-span-12 lg:col-span-4 space-y-6">
+<!-- Automated Optimization Card -->
+<div class="bg-gradient-to-br from-primary to-primary-container rounded-xl p-8 text-white relative overflow-hidden group">
+<div class="absolute -right-12 -top-12 w-48 h-48 bg-white/10 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-700"></div>
+<div class="relative z-10 space-y-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined filled-icon text-yellow-300" data-icon="auto_awesome">auto_awesome</span>
+<span class="text-[10px] font-black uppercase tracking-[0.2em] text-blue-100">AI Assistant</span>
+</div>
+<h3 class="text-xl font-bold font-headline leading-tight">Automated Optimization</h3>
+<p class="text-blue-100 text-sm leading-relaxed opacity-90">Our engine identifies gaps and suggests time-blocks that maximize tutor availability and student density.</p>
+<button class="w-full py-3 bg-white text-primary rounded-xl font-bold text-sm hover:bg-blue-50 transition-colors active:scale-95">
+                            Run Optimizer Now
+                        </button>
+</div>
+</div>
+<!-- Conflicts Found Sidebar -->
+<div class="bg-surface-container-lowest rounded-xl p-6 border border-error/10">
+<div class="flex items-center justify-between mb-6">
+<div class="flex items-center gap-2 text-error">
+<span class="material-symbols-outlined filled-icon" data-icon="report">report</span>
+<h3 class="font-bold font-headline">Conflicts Found</h3>
+</div>
+<span class="bg-error/10 text-error px-2 py-0.5 rounded-full text-[10px] font-black">02</span>
+</div>
+<div class="space-y-4">
+<!-- Conflict Item 1 -->
+<div class="p-4 rounded-xl bg-error-container/20 border-l-4 border-error space-y-3">
+<div class="flex justify-between items-start">
+<span class="text-[10px] font-black text-error uppercase tracking-widest">Double Booking</span>
+<span class="text-[10px] font-medium text-slate-500 italic">Today, 2:45 PM</span>
+</div>
+<p class="text-xs font-semibold text-on-background">Dr. Elena Kostas overlaps with Laboratory Session B-4.</p>
+<div class="flex gap-2">
+<button class="text-[10px] font-bold text-primary underline">Resolve</button>
+<button class="text-[10px] font-bold text-slate-400">Ignore</button>
+</div>
+</div>
+<!-- Conflict Item 2 -->
+<div class="p-4 rounded-xl bg-surface-container-high border-l-4 border-slate-300 space-y-3">
+<div class="flex justify-between items-start">
+<span class="text-[10px] font-black text-slate-500 uppercase tracking-widest">Capacity Limit</span>
+<span class="text-[10px] font-medium text-slate-500 italic">Wed, Oct 12</span>
+</div>
+<p class="text-xs font-semibold text-on-background">Seminar Room 302 exceeds seating for Advanced Calculus.</p>
+<div class="flex gap-2">
+<button class="text-[10px] font-bold text-primary underline">Assign Hall</button>
+</div>
+</div>
+</div>
+<button class="w-full mt-6 py-2.5 text-[10px] font-black uppercase tracking-widest text-slate-500 hover:text-primary transition-colors border border-dashed border-slate-200 rounded-lg">
+                        View All System Logs
+                    </button>
+</div>
+<!-- Learning Momentum Tracker -->
+<div class="bg-white rounded-xl p-6 border border-outline-variant/15">
+<h3 class="text-sm font-bold text-on-background mb-4 font-headline">Monthly Learning Momentum</h3>
+<div class="flex items-end gap-1 h-24 mb-4">
+<div class="flex-1 bg-primary-fixed rounded-sm h-[40%]"></div>
+<div class="flex-1 bg-primary-fixed rounded-sm h-[55%]"></div>
+<div class="flex-1 bg-primary-fixed rounded-sm h-[45%]"></div>
+<div class="flex-1 bg-primary-container rounded-sm h-[75%]"></div>
+<div class="flex-1 bg-primary rounded-sm h-[90%]"></div>
+<div class="flex-1 bg-primary-container rounded-sm h-[60%]"></div>
+<div class="flex-1 bg-primary-fixed rounded-sm h-[40%]"></div>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Current Trend</span>
+<span class="text-xs font-black text-primary">+14.2%</span>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Contextual FAB - Suppression Logic: Hidden on Detail/Transactional as per rule, but this is a dashboard-level screen, showing it -->
+<button class="fixed bottom-8 right-8 w-14 h-14 bg-primary text-white rounded-full shadow-2xl flex items-center justify-center active:scale-90 transition-transform z-50">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+</button>
+</body></html>

@@ -82,7 +82,17 @@
                 <p class="text-on-surface-variant">Silakan masukkan email dan password Anda untuk masuk.</p>
             </div>
             
-            <x-auth-session-status class="mb-4 text-emerald-600 text-sm font-semibold" :status="session('status')" />
+            @if (session('status'))
+                <div class="mb-6 p-4 rounded-xl bg-emerald-50 border border-emerald-200 flex items-start gap-3">
+                    <span class="material-symbols-outlined text-emerald-600 mt-0.5">check_circle</span>
+                    <div>
+                        <h3 class="text-sm font-bold text-emerald-800">Berhasil</h3>
+                        <div class="text-sm text-emerald-700 mt-1">
+                            {{ session('status') }}
+                        </div>
+                    </div>
+                </div>
+            @endif
 
             <form method="POST" action="{{ route('login') }}" class="space-y-6">
                 @csrf
